@@ -6,17 +6,21 @@ public class program {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        while(true){
 
-        System.out.println("tu veux te presenter(o/n) : ");
-        String o = input.nextLine();
 
-        if(o.equals("o")){
-            presentation(input);
-        }else  if(o.equals("n")){
-            System.out.println("au revoir");
-            System.exit(0);
-        }else {
-            System.out.println("Choix invalide !");
+            System.out.println("tu veux te presenter(o/n) : ");
+            String o = input.nextLine();
+
+            if(o.equals("o")){
+                presentation(input);
+            }else  if(o.equals("n")){
+                System.out.println("au revoir");
+                break;
+            }else {
+                System.out.println("Choix invalide !");
+            }
+
         }
         input.close();
 
