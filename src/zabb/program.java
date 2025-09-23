@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class program {
 
     public static void main(String[] args) {
-        System.out.println("tu veux te presentation : ");
+        System.out.println("tu veux te presenter : ");
         Scanner input = new Scanner(System.in);
         String o = input.nextLine();
         if(o.equals("o")){
