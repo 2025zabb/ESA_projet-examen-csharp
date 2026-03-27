@@ -1,6 +1,6 @@
 ﻿namespace ProjetExamen;
 
-class Program
+class Mains
 {
     static void Main(string[] args)
     {
