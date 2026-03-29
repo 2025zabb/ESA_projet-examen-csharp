@@ -17,5 +17,40 @@ public class StationService
   cuves = new List<Cuve>();
   pomes = new List<Pompe>();
  }
+
+ public void AjouteCuve(Cuve cuve)
+ {
+  cuves.Add(cuve);
+  Console.WriteLine("Cuve " + cuve.numeeroCuve + "ajoutée " + nom);
+ }
  
+ public void AjoutePompe(Pompe pompe){
+  pomes.Add(pompe);
+  Console.WriteLine("Cuve " + pompe.NumeeroPompe + "ajoutée ");
+  
+ }
+
+ public void ConnectCuvePmpe(int numPompe, int numCuve){
+  foreach (var pomp in pomes)
+  {
+   if (pomp.NumeeroPompe == numPompe)
+   {
+    foreach (var cuv in cuves)
+    {
+     if (cuv.numeeroCuve == numCuve)
+     {
+      pomp.typeCuve = cuv.carburant.type;
+      Console.Write("pompe" + numPompe + "attache à  cuve " + numCuve + " " );
+     }
+    }
+   }
+   {
+    
+   }
+  }
+  
+  
+ }
+ 
+
 }

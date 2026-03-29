@@ -30,12 +30,14 @@ public class Cuve
 
     public bool CommandEssenc()
     {
-        return capaciteActuelle < capaciteMin;
+        return capaciteActuelle <= capaciteMin;
     }
 
     public void Remplir(double quantite)
     {
-        
+     capaciteActuelle += quantite;
+     if (capaciteActuelle > capaciteMax){
+         capaciteActuelle = capaciteMax;}
     }
 
     public void DistriEssence(double quantite)
