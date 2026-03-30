@@ -1,0 +1,15 @@
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/bin/Debug/net10.0/ProjetExamen
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/bin/Debug/net10.0/ProjetExamen.deps.json
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/bin/Debug/net10.0/ProjetExamen.runtimeconfig.json
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/bin/Debug/net10.0/ProjetExamen.dll
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/bin/Debug/net10.0/ProjetExamen.pdb
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.GeneratedMSBuildEditorConfig.editorconfig
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.AssemblyInfoInputs.cache
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.AssemblyInfo.cs
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.csproj.CoreCompileInputs.cache
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.sourcelink.json
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.dll
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/refint/ProjetExamen.dll
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.pdb
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ProjetExamen.genruntimeconfig.cache
+/Users/zabb/RiderProjet/ProjetExamen/ProjetExamen/obj/Debug/net10.0/ref/ProjetExamen.dll

@@ -1,6 +1,6 @@
 namespace ProjetExamen;
 
-public class Pistolet
+public class Pistolet : IStatut
 {
     public int numeeroPistole {get; set;}
     public bool disponible {get; set;}
@@ -11,7 +11,12 @@ public class Pistolet
     {
         this.numeeroPistole = numeeroPistole;
         this.cuve = cuve;
-        disponible = true;
-        enpanne = false;
+        this.disponible = true;
+        this.enpanne = false;
     }
-}
+
+    public string Status()
+    {
+        throw new NotImplementedException();
+    }
+} 
