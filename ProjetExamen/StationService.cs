@@ -25,7 +25,7 @@ public class StationService
  /// <summary>
  /// Liste des pompes disponibles dans la station.
  /// </summary>
- public List<Pompe> pomes {get; set;}
+ public List<Pompe> pompes {get; set;}
  /// <summary>
  /// Liste des cuves disponibles dans la station.
  /// </summary>
@@ -42,7 +42,7 @@ public class StationService
   this.address = address;
 
   cuves = new List<Cuve>();
-  pomes = new List<Pompe>();
+  pompes = new List<Pompe>();
  }
  /// <summary>
  /// Ajoute une cuve à la station.
@@ -58,7 +58,7 @@ public class StationService
  /// </summary>
  /// <param name="pompe">Cuve à ajouter</param>
  public void AjouterPompe(Pompe pompe){
-  pomes.Add(pompe);
+  pompes.Add(pompe);
   Console.WriteLine("Pompe " + pompe.NumeeroPompe + "ajoutée ");
   
  }
@@ -77,7 +77,7 @@ public class StationService
  /// <param name="pompe">Cuve à supprimer</param>
  public void SupprimerPompe(Pompe pompe)
  {
-  pomes.Remove(pompe);
+  pompes.Remove(pompe);
   Console.WriteLine("Pompe " + pompe.NumeeroPompe + " ");
  }
  /// <summary>
@@ -90,7 +90,7 @@ public class StationService
  /// méthod aide par ChatGPT
 
  public void ConnectCuvePmpe(int numPompe, int numCuve){
-  foreach (var pomp in pomes)
+  foreach (var pomp in pompes)
   {
    if (pomp.NumeeroPompe == numPompe)
    {

@@ -26,7 +26,7 @@ public class Cuve: InterfacCuve
 
     public bool EstPleine()
     {
-        return capaciteActuelle >= capaciteMax;
+        return capaciteActuelle == capaciteMax;
     }
 
     public bool CommanderEssenc()
@@ -65,17 +65,46 @@ public class Cuve: InterfacCuve
     {
         if (!DonnerEssenc())
         {
-            Console.WriteLine(" distribution impossible");
+            Console.WriteLine(" cuve ne peut distribution du carburant");
             return;
         }
 
         if (capaciteActuelle < quantite)
         {
-            Console.WriteLine(" pas assez d'essence ");
+            Console.WriteLine(" pas assez d'essence dans la cuve ");
             return;
         }
         capaciteActuelle -= quantite;
         Console.WriteLine(" distribution OK , " + quantite + " L distribué " );
+    }
+
+    public void EtatDeLaCuve(double quantite)
+    {
+        if (EstVide())
+        {
+            Console.WriteLine("nouvelle cuve " + numeeroCuve + " et vide ");
+           
+        } else if (EstPleine())
+        {
+            Console.WriteLine("la  cuve " + numeeroCuve + " pleine ");
+        }
+        else
+        {
+            Console.WriteLine(" la  cuve " + numeeroCuve + " en service ");
+        }
+    }
+
+    public void RemplirCuveSiVide(double quantite)
+    {
+        if (EstVide())
+        {
+            CommanderEtRemplirCuve(quantite);
+        }
+    }
+    
+    public double GetcapaciteActuelle()
+    {
+        return capaciteActuelle;
     }
     
 }

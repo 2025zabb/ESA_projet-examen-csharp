@@ -17,6 +17,16 @@ public class Pistolet : IStatut
 
     public string Status()
     {
-        throw new NotImplementedException();
+        if (enpanne)
+        {
+            return "Le pistole est en panne";
+        }
+
+        if (!disponible)
+        {
+            return "le pistole est deja utiliser";
+        }
+
+        return "le pistole est disponible";
     }
-} 
+    }
