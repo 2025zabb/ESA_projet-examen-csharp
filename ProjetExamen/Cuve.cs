@@ -3,21 +3,21 @@ namespace ProjetExamen;
 /// Ca represente une cube de stokage de carburant, elle permet de remplire la cuve,
 /// de voir son état , de distribue du carburant
 /// </summary>
-public class Cuve: InterfacCuve
+public class Cuve: INterfacCuve
 {
     // represente la quantité actuelle du carburant dans la cuve en littre
-    private double capaciteActuelle {get; set;}
+    private double CapaciteActuelle {get; set;}
     // represente la quantité maximale du carburant dans la cuve en littre
-    public double capaciteMax {get; set;}
+    public double CapaciteMax {get; set;}
     // represente la quantité minimale du carburant dans la cuve en littre
-    public double capaciteMin {get; set;}
+    public double CapaciteMin {get; set;}
     // represente le numero unique de la cuve
-    public int numeeroCuve {get; set;}
+    public int NumeeroCuve {get; set;}
     // represente le type de carburant adns la cuve en littre
-    public TypeEssence carburant {get; set;}
+    public TypeEssence Carburant {get; set;}
     // represente le niveau de seuil de carburant a ne pas depasser dans la cuve en littre
     
-    public double seuilcapacite {get; set;}
+    public double Seuilcapacite {get; set;}
     /// <summary>
     /// Constructeur de la cuve remplit de maniere partiel ou total à la création
     /// </summary>
@@ -29,23 +29,23 @@ public class Cuve: InterfacCuve
     /// <param name="seuilcapacite"></param>
     public Cuve(int numeeroCuve, TypeEssence carburant, double capaciteActuelle, double capaciteMax, double capaciteMin,double seuilcapacite)
     {
-        this.numeeroCuve = numeeroCuve;
-        this.carburant = carburant;
-        this.capaciteActuelle = capaciteActuelle;
-        this.capaciteMax = capaciteMax;
-        this.capaciteMin = capaciteMin;
-        this.seuilcapacite = seuilcapacite;
+        this.NumeeroCuve = numeeroCuve;
+        this.Carburant = carburant;
+        this.CapaciteActuelle = capaciteActuelle;
+        this.CapaciteMax = capaciteMax;
+        this.CapaciteMin = capaciteMin;
+        this.Seuilcapacite = seuilcapacite;
         
     }
+
     /// <summary>
     /// Constructeur de la cuve vide à la creation
     /// </summary>
     /// <param name="numeeroCuve"></param>
     /// <param name="carburant"></param>
-    /// <param name="capaciteActuelle"></param>
     /// <param name="capaciteMax"></param>
     /// <param name="capaciteMin"></param>
-    
+    /// <param name="seuilcapacite"></param>
     public Cuve(int numeeroCuve, TypeEssence carburant, double capaciteMax, double capaciteMin,double seuilcapacite) 
         : this (
         numeeroCuve, carburant,0,capaciteMax,capaciteMin,seuilcapacite){}
@@ -57,7 +57,7 @@ public class Cuve: InterfacCuve
     
     public bool EstVide()
     {
-        return capaciteActuelle == 0;
+        return CapaciteActuelle == 0;
     }
     /// <summary>
     /// Vérifie si la est pleine
@@ -66,7 +66,7 @@ public class Cuve: InterfacCuve
     
     public bool EstPleine()
     {
-        return capaciteActuelle == capaciteMax;
+        return CapaciteActuelle == CapaciteMax;
     }
     
     /// <summary>
@@ -76,7 +76,7 @@ public class Cuve: InterfacCuve
     
     public bool CommanderEssenc()
     {
-       return capaciteActuelle <= capaciteMin;
+       return CapaciteActuelle <= CapaciteMin;
     }
     /// <summary>
     ///Vérifie si la cuve peut distribuer du carburant
@@ -85,7 +85,7 @@ public class Cuve: InterfacCuve
     
     public bool DonnerEssenc()
     {
-        return !RemplissageEssenc && capaciteActuelle > seuilcapacite;
+        return !RemplissageEssenc && CapaciteActuelle > Seuilcapacite;
     }
     
     /// <summary>
@@ -100,9 +100,9 @@ public class Cuve: InterfacCuve
     
     public void Remplir(double quantite)
     {
-     capaciteActuelle += quantite;
-     if (capaciteActuelle > capaciteMax){
-         capaciteActuelle = capaciteMax;}
+     CapaciteActuelle += quantite;
+     if (CapaciteActuelle > CapaciteMax){
+         CapaciteActuelle = CapaciteMax;}
     }
     
     /// <summary>
@@ -114,12 +114,13 @@ public class Cuve: InterfacCuve
     {
         if (CommanderEssenc())
         {
-            Console.WriteLine("cuve " + numeeroCuve + " en remplissage");
+            Console.WriteLine("cuve " + NumeeroCuve + " en remplissage");
             RemplissageEssenc = true;
             Remplir(quantite);
+            Console.WriteLine("la cuve " + NumeeroCuve + " a été remplit de " + quantite + " L");
             
             RemplissageEssenc = false;
-            Console.WriteLine("cuve " + numeeroCuve + "rempli");
+            Console.WriteLine("cuve " + NumeeroCuve + " peut etre utilise maintenat");
         }
     }
     
@@ -127,21 +128,26 @@ public class Cuve: InterfacCuve
     /// Permet de distribue une quantité de carburant
     /// </summary>
     /// <param name="quantite"></param>
-    public void DistriEssence(double quantite)
+    public double? DistriEssence(double quantite)
     {
         if (!DonnerEssenc())
         {
-            Console.WriteLine(" cuve ne peut distribution du carburant");
-            return;
+            Console.WriteLine(" La cuve ne peut distribuer du carburant");
+            return null;
         }
 
-        if (capaciteActuelle < quantite)
+        if (CapaciteActuelle < quantite)
         {
             Console.WriteLine(" pas assez d'essence dans la cuve ");
-            return;
+            return null;
         }
-        capaciteActuelle -= quantite;
+        CapaciteActuelle -= quantite;
+        double lePrix = Carburant.CalculerPrixParLitre(quantite);
+        
+        
         Console.WriteLine(" distribution OK , " + quantite + " L distribué " );
+        Console.WriteLine("Prix à paie " + lePrix + " € ");
+        return lePrix;
     }
     
     /// <summary>
@@ -151,15 +157,15 @@ public class Cuve: InterfacCuve
     {
         if (EstVide())
         {
-            Console.WriteLine("nouvelle cuve " + numeeroCuve + " et vide ");
+            Console.WriteLine("nouvelle cuve " + NumeeroCuve + " et vide ");
            
         } else if (EstPleine())
         {
-            Console.WriteLine("la  cuve " + numeeroCuve + " pleine ");
+            Console.WriteLine("la  cuve " + NumeeroCuve + " pleine ");
         }
         else
         {
-            Console.WriteLine(" la  cuve " + numeeroCuve + " en service ");
+            Console.WriteLine(" la  cuve " + NumeeroCuve + " en service ");
         }
     }
     
@@ -172,6 +178,7 @@ public class Cuve: InterfacCuve
         if (EstVide())
         {
             CommanderEtRemplirCuve(quantite);
+            Console.WriteLine(" La cuve a été remplit de " + quantite + " L");
         }
     }
     
@@ -181,7 +188,7 @@ public class Cuve: InterfacCuve
     /// <returns></returns>
     public double GetcapaciteActuelle()
     {
-        return capaciteActuelle;
+        return CapaciteActuelle;
     }
     
 }

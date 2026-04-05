@@ -6,11 +6,11 @@ namespace ProjetExamen;
 public enum NomCarburant
 {
     // carbutant disel
-    diesel,
+    Diesel,
     //essence sans plomb
-    sp95,
+    Sp95,
     //essence sans plomb
-    sp98,
+    Sp98,
     
 }
 /// <summary>
@@ -19,10 +19,10 @@ public enum NomCarburant
 public class TypeEssence
 {
     //  type de carburant (diesel,sp95...)
-    public NomCarburant type { get; set; }
+    public NomCarburant Type { get; set; }
 
     // prix du carburant par litre
-    public double prix_par_litre {
+    private double PrixParlitre {
         get; set;
     }
     
@@ -30,11 +30,11 @@ public class TypeEssence
     /// Constructeur permettant d'initialiser le type d'essence avec son prix
     /// </summary>
     /// <param name="type"></param>
-    /// <param name="prix_par_litre"></param>
-    public TypeEssence(NomCarburant type, double prix_par_litre)
+    /// <param name="prixParlitre"></param>
+    public TypeEssence(NomCarburant type, double prixParlitre)
     {
-        this.type = type;
-        this.prix_par_litre = prix_par_litre ;
+        this.Type = type;
+        this.PrixParlitre = prixParlitre ;
         
     }
     /// <summary>
@@ -44,7 +44,12 @@ public class TypeEssence
     /// <returns></returns>
     public double CalculerPrixParLitre(double litre)
     {
-        double total = prix_par_litre * litre;
+        double total = PrixParlitre * litre;
         return total;
+    }
+    
+    public double GetPrixParLitre()
+    {
+        return PrixParlitre;
     }
 }

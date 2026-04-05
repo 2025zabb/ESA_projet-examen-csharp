@@ -2,31 +2,36 @@ namespace ProjetExamen;
 
 public class Pistolet : IStatut
 {
-    public int numeeroPistole {get; set;}
-    public bool disponible {get; set;}
-    public bool enpanne {get; set;}
-    public Cuve cuve {get; set;}
+    public int NumeeroPistole {get; set;}
+    public bool Disponible {get; set;}
+    public bool Enpanne {get; set;}
+    public Cuve Cuve {get; set;}
 
     public Pistolet(int numeeroPistole, Cuve cuve)
     {
-        this.numeeroPistole = numeeroPistole;
-        this.cuve = cuve;
-        this.disponible = true;
-        this.enpanne = false;
+        this.NumeeroPistole = numeeroPistole;
+        this.Cuve = cuve;
+        this.Disponible = true;
+        this.Enpanne = false;
     }
 
     public string Status()
     {
-        if (enpanne)
+        if (Enpanne)
         {
             return "Le pistole est en panne";
         }
 
-        if (!disponible)
+        if (!Disponible)
         {
             return "le pistole est deja utiliser";
         }
 
         return "le pistole est disponible";
+    }
+
+    public void Distribue(double quantite)
+    {
+        Cuve.DistriEssence(quantite);
     }
 }

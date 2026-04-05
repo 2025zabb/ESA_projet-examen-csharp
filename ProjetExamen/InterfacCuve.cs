@@ -1,6 +1,6 @@
 namespace ProjetExamen;
 // creation d une interface methode pour Cuve
-public interface InterfacCuve
+public interface INterfacCuve
 {
     // renvoie vrai si vide sinon faux
     public bool EstVide();

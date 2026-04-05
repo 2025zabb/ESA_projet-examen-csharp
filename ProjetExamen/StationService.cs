@@ -9,27 +9,27 @@ public class StationService
  /// <summary>
  /// nom de la station service
  /// </summary>
- public  string nom;
+ public  string Nom;
  /// <summary>
  /// Adresse de la station-service.
  /// </summary>
- public string address { get; set; }
+ public string Address { get; set; }
  /// <summary>
  /// Heure d'ouverture de la station.
  /// </summary>
- public TimeSpan horaireOuverture { get; set; }
+ public TimeSpan HoraireOuverture { get; set; }
  /// <summary>
  /// Heure de fermeture de la station.
  /// </summary>
- public TimeSpan horaireFermeture { get; set; }
+ public TimeSpan HoraireFermeture { get; set; }
  /// <summary>
  /// Liste des pompes disponibles dans la station.
  /// </summary>
- public List<Pompe> pompes {get; set;}
+ public List<Pompe> Pompes {get; set;}
  /// <summary>
  /// Liste des cuves disponibles dans la station.
  /// </summary>
- public List<Cuve> cuves {get; set;}
+ public List<Cuve> Cuves {get; set;}
  /// <summary>
  /// Constructeur de la station-service.
  /// Initialise le nom, l'adresse et les listes de pompes et de cuves.
@@ -38,11 +38,11 @@ public class StationService
  /// <param name="address">Adresse de la station</param>
  public StationService(string nom, string address)
  {
-  this.nom = nom;
-  this.address = address;
+  this.Nom = nom;
+  this.Address = address;
 
-  cuves = new List<Cuve>();
-  pompes = new List<Pompe>();
+  Cuves = new List<Cuve>();
+  Pompes = new List<Pompe>();
  }
  /// <summary>
  /// Ajoute une cuve à la station.
@@ -50,15 +50,15 @@ public class StationService
  /// <param name="cuve">Cuve à ajouter</param>
  public void AjouterCuve(Cuve cuve)
  {
-  cuves.Add(cuve);
-  Console.WriteLine("Cuve " + cuve.numeeroCuve + "ajoutée " + nom);
+  Cuves.Add(cuve);
+  Console.WriteLine("Cuve " + cuve.NumeeroCuve + "ajoutée " + Nom);
  }
  /// <summary>
  /// Ajoute une pompe à la station.
  /// </summary>
  /// <param name="pompe">Pompe à ajouter</param>
  public void AjouterPompe(Pompe pompe){
-  pompes.Add(pompe);
+  Pompes.Add(pompe);
   Console.WriteLine("Pompe " + pompe.NumeeroPompe + "ajoutée ");
   
  }
@@ -68,8 +68,8 @@ public class StationService
  /// <param name="cuve">Cuve à supprimer</param>
  public void SupprimerCuve(Cuve cuve)
  {
-  cuves.Remove(cuve);
-  Console.WriteLine("Cuve" + cuve.numeeroCuve + " supprimer " + nom);
+  Cuves.Remove(cuve);
+  Console.WriteLine("Cuve" + cuve.NumeeroCuve + " supprimer " + Nom);
  }
  /// <summary>
  /// Supprime une pompe de la station.
@@ -77,7 +77,7 @@ public class StationService
  /// <param name="pompe">Pompe à supprimer</param>
  public void SupprimerPompe(Pompe pompe)
  {
-  pompes.Remove(pompe);
+  Pompes.Remove(pompe);
   Console.WriteLine("Pompe " + pompe.NumeeroPompe + " ");
  }
  /// <summary>
