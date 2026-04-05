@@ -56,7 +56,7 @@ public class StationService
  /// <summary>
  /// Ajoute une pompe à la station.
  /// </summary>
- /// <param name="pompe">Cuve à ajouter</param>
+ /// <param name="pompe">Pompe à ajouter</param>
  public void AjouterPompe(Pompe pompe){
   pompes.Add(pompe);
   Console.WriteLine("Pompe " + pompe.NumeeroPompe + "ajoutée ");
@@ -74,7 +74,7 @@ public class StationService
  /// <summary>
  /// Supprime une pompe de la station.
  /// </summary>
- /// <param name="pompe">Cuve à supprimer</param>
+ /// <param name="pompe">Pompe à supprimer</param>
  public void SupprimerPompe(Pompe pompe)
  {
   pompes.Remove(pompe);
@@ -89,27 +89,7 @@ public class StationService
  
  /// méthod aide par ChatGPT
 
- public void ConnectCuvePmpe(int numPompe, int numCuve){
-  foreach (var pomp in pompes)
-  {
-   if (pomp.NumeeroPompe == numPompe)
-   {
-    foreach (var cuv in cuves)
-    {
-     if (cuv.numeeroCuve == numCuve)
-     {
-      pomp.typeCuve = cuv.carburant.type;
-      Console.Write("pompe " + numPompe + " attache à  cuve " + numCuve + " " );
-     }
-    }
-   }
-   {
-    
-   }
-  }
-  
-  
- }
+
  
 
 }

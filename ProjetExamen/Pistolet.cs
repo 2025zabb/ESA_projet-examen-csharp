@@ -29,4 +29,4 @@ public class Pistolet : IStatut
 
         return "le pistole est disponible";
     }
-    }
+}
