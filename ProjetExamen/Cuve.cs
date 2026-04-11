@@ -142,7 +142,7 @@ public class Cuve: INterfacCuve
             return null;
         }
         CapaciteActuelle -= quantite;
-        double lePrix = Carburant.CalculerPrixParLitre(quantite);
+        double lePrix = Math.Round(Carburant.CalculerPrixParLitre(quantite),2);
         
         
         Console.WriteLine(" distribution OK , " + quantite + " L distribué " );
@@ -157,7 +157,7 @@ public class Cuve: INterfacCuve
     {
         if (EstVide())
         {
-            Console.WriteLine("nouvelle cuve " + NumeeroCuve + " et vide ");
+            Console.WriteLine("nouvelle cuve " + NumeeroCuve + " est vide ");
            
         } else if (EstPleine())
         {

@@ -10,10 +10,10 @@ public class Pompe : IStatut
     public string TypeCuve { get; set; }
 
     // constructeur de la class
-    public Pompe(int numeeroPompe, string typeCuve)
+    public Pompe(int numeeroPompe)
     {
         NumeeroPompe = numeeroPompe;
-        TypeCuve = typeCuve;
+        //TypeCuve = typeCuve;
         Disponible = true;
         Enpane = false;
         Pistolets = new List<Pistolet>();
@@ -44,7 +44,7 @@ public class Pompe : IStatut
 
         if (Disponible)
         {
-            
+            // pas finit 
         }
     }
 }

@@ -51,7 +51,7 @@ public class StationService
  public void AjouterCuve(Cuve cuve)
  {
   Cuves.Add(cuve);
-  Console.WriteLine("Cuve " + cuve.NumeeroCuve + "ajoutée " + Nom);
+  Console.WriteLine("Cuve " + cuve.NumeeroCuve + " a été ajouter " + Nom);
  }
  /// <summary>
  /// Ajoute une pompe à la station.
@@ -59,7 +59,7 @@ public class StationService
  /// <param name="pompe">Pompe à ajouter</param>
  public void AjouterPompe(Pompe pompe){
   Pompes.Add(pompe);
-  Console.WriteLine("Pompe " + pompe.NumeeroPompe + "ajoutée ");
+  Console.WriteLine("Pompe " + pompe.NumeeroPompe + " a été ajouter ");
   
  }
  /// <summary>
@@ -80,6 +80,44 @@ public class StationService
   Pompes.Remove(pompe);
   Console.WriteLine("Pompe " + pompe.NumeeroPompe + " ");
  }
+
+/// <summary>
+/// Permet de voir l'état de la cuve dans la station
+/// </summary>
+ public void AffichagerDuStoke()
+ {
+  foreach (var cuve in Cuves)
+  {
+   Console.WriteLine("La capacite de la cuve " + cuve.NumeeroCuve + " vaut : " + cuve.GetcapaciteActuelle() + " Littre");
+  }
+ }
+/// <summary>
+/// Permet de voir le nombreux de pompe dans la station service ainsi que son status
+/// </summary>
+ public void AfficherNombrePompe()
+ {
+  foreach (var pompe in Pompes)
+  {
+   Console.WriteLine("Pompe n°"  + pompe.NumeeroPompe + " " + pompe.Status());
+  }
+ }
+ /// <summary>
+ /// Permet de voir tous les pistolets de toutes les pompes dans la station service ainsi que son status
+ /// method propose par ChatGpt
+ /// </summary>
+ public void AfficherPistolets()
+ {
+  foreach (var pompe in Pompes)
+  {
+   foreach (var p in pompe.Pistolets)
+   {
+    Console.WriteLine("Pistolet " + p.NumeeroPistole + " - " + p.Status());
+   }
+  }
+ }
+ 
+ 
+ 
  /// <summary>
  /// Connecte une pompe à une cuve en fonction de leurs numéros.
  /// La pompe prendra le type de carburant de la cuve.

@@ -33,5 +33,6 @@ public class Pistolet : IStatut
     public void Distribue(double quantite)
     {
         Cuve.DistriEssence(quantite);
+        // pas finit
     }
 }
