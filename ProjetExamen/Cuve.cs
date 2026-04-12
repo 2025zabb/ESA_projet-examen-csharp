@@ -58,6 +58,7 @@ public class Cuve: INterfacCuve
     public bool EstVide()
     {
         return CapaciteActuelle == 0;
+        
     }
     /// <summary>
     /// Vérifie si la est pleine
@@ -146,7 +147,7 @@ public class Cuve: INterfacCuve
         
         
         Console.WriteLine(" distribution OK , " + quantite + " L distribué " );
-        Console.WriteLine("Prix à paie " + lePrix + " € ");
+        Console.WriteLine("Prix a payer " + lePrix + " € ");
         return lePrix;
     }
     
@@ -161,7 +162,7 @@ public class Cuve: INterfacCuve
            
         } else if (EstPleine())
         {
-            Console.WriteLine("la  cuve " + NumeeroCuve + " pleine ");
+            Console.WriteLine("la  cuve " + NumeeroCuve + " posséde du carburant ");
         }
         else
         {

@@ -30,9 +30,25 @@ public class Pistolet : IStatut
         return "le pistole est disponible";
     }
 
-    public void Distribue(double quantite)
+    public double? Distribue(double quantite)
     {
-        Cuve.DistriEssence(quantite);
-        // pas finit
+        if (Enpanne)
+        {
+            Console.WriteLine("Le pistole est en panne, pas de distribution");
+            return null;
+        }
+
+        if (!Disponible)
+        {
+            Console.WriteLine("Le pistole est deja utiliser");
+            return null;
+        }
+        
+        Disponible = false;
+        double? prix = Cuve.DistriEssence(quantite);
+        
+        Disponible = true;
+        return prix;
+       
     }
 }

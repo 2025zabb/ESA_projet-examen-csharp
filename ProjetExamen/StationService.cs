@@ -59,7 +59,7 @@ public class StationService
  /// <param name="pompe">Pompe à ajouter</param>
  public void AjouterPompe(Pompe pompe){
   Pompes.Add(pompe);
-  Console.WriteLine("Pompe " + pompe.NumeeroPompe + " a été ajouter ");
+  Console.WriteLine("Pompe " + pompe.NumeeroPompe + " a été creer  dans la station-service " + Nom);
   
  }
  /// <summary>
@@ -78,7 +78,7 @@ public class StationService
  public void SupprimerPompe(Pompe pompe)
  {
   Pompes.Remove(pompe);
-  Console.WriteLine("Pompe " + pompe.NumeeroPompe + " ");
+  Console.WriteLine("Pompe " + pompe.NumeeroPompe + "  supprimer de la station-service " + Nom);
  }
 
 /// <summary>

@@ -36,15 +36,23 @@ public class Pompe : IStatut
 
     public void FaireLePlein(Client client, double quantite)
     {
+        if (Enpane)
+        {
+            Console.WriteLine("Pompe en  panne");
+            return;
+        }
+
+        double? prix = null;
         foreach (var pi in Pistolets)
         {
             if (pi.Disponible && !Enpane){
                 pi.Disponible = true;}
+            prix = pi.Distribue(quantite);
         }
 
-        if (Disponible)
+        if (prix!=null)
         {
-            // pas finit 
+            client.EffectuerLePaiement(prix.Value);
         }
     }
 }
