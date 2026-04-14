@@ -45,10 +45,16 @@ public class Pistolet : IStatut
         }
         
         Disponible = false;
-        double? prix = Cuve.DistriEssence(quantite);
+        try
+        {
+            double? prix = Cuve.DistriEssence(quantite);
+            return prix;
+        }
+        finally
+        {
+           
+            Disponible = true;
+        }
         
-        Disponible = true;
-        return prix;
-       
     }
 }

@@ -38,21 +38,25 @@ public class Pompe : IStatut
     {
         if (Enpane)
         {
-            Console.WriteLine("Pompe en  panne");
+            Console.WriteLine("Pompe hors service");
             return;
         }
 
         double? prix = null;
         foreach (var pi in Pistolets)
         {
-            if (pi.Disponible && !Enpane){
-                pi.Disponible = true;}
-            prix = pi.Distribue(quantite);
+            if (pi.Disponible && !Enpane)
+            {
+                pi.Disponible = true;
+                prix = pi.Distribue(quantite);
+
+                if (prix != null)
+                {
+                    client.EffectuerLePaiement(prix.Value);
+                }
+                return;
+            }
         }
 
-        if (prix!=null)
-        {
-            client.EffectuerLePaiement(prix.Value);
-        }
     }
 }

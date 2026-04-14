@@ -146,7 +146,7 @@ public class Cuve: INterfacCuve
         double lePrix = Math.Round(Carburant.CalculerPrixParLitre(quantite),2);
         
         
-        Console.WriteLine(" distribution OK , " + quantite + " L distribué " );
+        Console.WriteLine(" distribution OK , " + quantite + " Litres distribué " );
         Console.WriteLine("Prix a payer " + lePrix + " € ");
         return lePrix;
     }
@@ -179,7 +179,7 @@ public class Cuve: INterfacCuve
         if (EstVide())
         {
             CommanderEtRemplirCuve(quantite);
-            Console.WriteLine(" La cuve a été remplit de " + quantite + " L");
+            Console.WriteLine(" La cuve a été remplit de " + quantite + " Litres");
         }
     }
     

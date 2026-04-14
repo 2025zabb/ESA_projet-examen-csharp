@@ -7,13 +7,15 @@ class Mains
     static void Main(string[] args)
     {
         //  1. Station
-        StationService station = new StationService("Total", "rue d'Assaut 40, 6000 Charleroi");
+        StationService station = new StationService("Total", "rue d'Assaut 40, 6000 Charleroi",new TimeSpan(6,0,0),new TimeSpan(20,0,0));
 
         Console.WriteLine("Station : " + station.Nom);
         Console.WriteLine("address de la Station Service : " +station.Address);
         Console.WriteLine("----------------------------------");
-       
         
+       // station horraire
+       station.HorraireShop();
+       Console.WriteLine(" ");
 
         //  Carburants
         TypeEssence sp95 = new TypeEssence(NomCarburant.Sp95, 2.00);
@@ -34,6 +36,7 @@ class Mains
         station.AjouterCuve(cu1);
         station.AjouterCuve(cu2);
         station.AjouterCuve(cu3);
+        
         // création des pompes dans la station
         station.AjouterPompe(pop1);
         station.AjouterPompe(pop2);
@@ -42,6 +45,7 @@ class Mains
         // affiche stok et nombreux de pompes
         station.AffichagerDuStoke();
         Console.WriteLine(" ");
+        
         station.AfficherNombrePompe();
         Console.WriteLine(" ");
         
@@ -59,9 +63,10 @@ class Mains
         //afficher les pistoles
         station.AfficherPistolets();
         Console.WriteLine(" ");
+        
         // creation client 
-        Client client1 = new Client("Mme clarise");
-        Client client2 = new Client("Mr berto");
+        Client client1 = new Client("clarise");
+        Client client2 = new Client("berto");
         
         // test 
         cu1.EtatDeLaCuve();
