@@ -30,6 +30,8 @@ public class StationService
  /// Liste des cuves disponibles dans la station.
  /// </summary>
  public List<Cuve> Cuves {get; set;}
+ 
+ public List<Vente> Ventes {get; set;}
 
  /// <summary>
  /// Constructeur de la station-service.
@@ -49,6 +51,7 @@ public class StationService
 
   Cuves = new List<Cuve>();
   Pompes = new List<Pompe>();
+  Ventes = new List<Vente>();
  }
  /// <summary>
  /// Ajoute une cuve à la station.

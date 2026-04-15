@@ -1,17 +1,14 @@
 namespace ProjetExamen;
 
-public class Client
+public class Client:Personnes
 {
-    public string Nom { set;get;}
-    
-    public Client(string nom)
+    public Client(string nom, string prenom) : base(nom, prenom)
     {
-        Nom = nom;
     }
 
     public void EffectuerLePaiement(double montant)
     {
-        Console.WriteLine("Mr,Mme " + Nom + " a payer " + montant + "€");
+        Console.WriteLine("Mr,Mme " + Nom + " " + Prenom + " a payer " + montant + "€");
     }
     
 }

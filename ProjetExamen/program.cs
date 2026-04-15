@@ -65,8 +65,8 @@ class program
         Console.WriteLine(" ");
         
         // creation client 
-        Client client1 = new Client("clarise");
-        Client client2 = new Client("berto");
+        Client client1 = new Client("nzabi","christian");
+        Client client2 = new Client("berto","boo");
         
         // test 
         cu1.EtatDeLaCuve();
