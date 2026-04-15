@@ -139,6 +139,25 @@ public class StationService
   Console.WriteLine(menu);
  
  }
+
+ public void AfficherPrixCarburant()
+ {
+  HashSet<NomCarburant> prixCarburant = new HashSet<NomCarburant>();
+  
+  Console.WriteLine("===== MENU PRIX CARBURANT =====");
+  
+  foreach (var cu in Cuves)
+  {
+   if (!prixCarburant.Contains(cu.Carburant.Type))
+   {
+    Console.WriteLine(cu.Carburant.Type + ":" + cu.Carburant.GetPrixParLitre()+ " €/L");
+    prixCarburant.Add(cu.Carburant.Type);
+   }
+   
+   
+   
+  }
+ }
  
  
  /// <summary>

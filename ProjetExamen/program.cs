@@ -2,7 +2,7 @@
 
 namespace ProjetExamen;
 
-class Mains
+class program
 {
     static void Main(string[] args)
     {

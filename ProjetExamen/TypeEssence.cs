@@ -52,4 +52,22 @@ public class TypeEssence
     {
         return PrixParlitre;
     }
+
+    public void AfficherPrixCarburant()
+    {
+        Dictionary<NomCarburant,double> prixCarburant = new Dictionary<NomCarburant, double>();
+        
+        prixCarburant.Add(NomCarburant.Diesel, 3.2);
+        prixCarburant.Add(NomCarburant.Sp95, 2.75);
+        prixCarburant.Add(NomCarburant.Sp98, 2.84);
+        
+       
+        
+        foreach (var carburant in prixCarburant)
+        {
+            Console.WriteLine(carburant.Key + " : " + carburant.Value + " €/L");
+           
+        }
+        
+    }
 }
