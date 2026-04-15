@@ -28,6 +28,7 @@ public class Pistolet : IStatut
         }
 
         return "le pistole est disponible";
+        
     }
 
     public double? Distribue(double quantite)
