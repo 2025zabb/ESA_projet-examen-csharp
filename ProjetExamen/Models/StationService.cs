@@ -1,4 +1,8 @@
-namespace ProjetExamen;
+using Npgsql;
+using ProjetExamen.Database;
+using static ProjetExamen.Database.Data;
+
+namespace ProjetExamen.Models;
 
 /// <summary>
 /// Représente une station-service contenant des pompes et des cuves.
@@ -124,7 +128,10 @@ public class StationService
    }
   }
  }
-
+/// <summary>
+/// Permet d'afficher l'horraire du shop
+/// IA a aider pour améliore le visuel
+/// </summary>
  public void HorraireShop()
  {
   string menu = $"""
@@ -142,12 +149,12 @@ public class StationService
   Console.WriteLine(menu);
  
  }
-
+/// <summary>
+/// Permet d'afficher un menu pour le carburant et le prix
+/// </summary>
  public void AfficherPrixCarburant()
  {
   HashSet<NomCarburant> prixCarburant = new HashSet<NomCarburant>();
-  
-  Console.WriteLine("===== MENU PRIX CARBURANT =====");
   
   foreach (var cu in Cuves)
   {
@@ -157,9 +164,69 @@ public class StationService
     prixCarburant.Add(cu.Carburant.Type);
    }
    
-   
-   
   }
+ }
+ /// <summary>
+ /// Permet d'ajouter une vente 
+ /// </summary>
+ /// <param name="vente"></param>
+ public void AjouterUneVente(Vente vente)
+ {
+  Ventes.Add(vente);
+  SauvegarderVenteBdd(vente);
+  Console.WriteLine("une vente a été ajouter ");
+  
+ }
+/// <summary>
+/// Permet d'afficher l'historis des ventes
+/// </summary>
+ public void AfficherHistoriqueDeVentes()
+ {
+  if (Ventes.Count <= 0)
+  {
+   Console.WriteLine("Pas de vente");
+  }
+  
+  foreach (var vente in Ventes)
+  {
+   Console.WriteLine(
+    
+    "Carburant : " + vente.Essences +
+    " Quantité : " + vente.Quantites + " L " +
+    " Prix : " + vente.PrixVenteTolal + " €" +
+    " Jour : " + vente.Jours
+    
+    
+    );
+  }
+ }
+ 
+ 
+ 
+ /// <summary>
+ /// Sauvegarde une vente dans la base de données PostgreSQL.
+ /// </summary>
+ /// Propose par IA CHatGPT
+ /// <param name="vente">Objet Vente contenant les informations à enregistrer</param>
+ public void SauvegarderVenteBdd(Vente vente)
+ {
+  Data db = new Data();
+
+  using var conn = db.GetConnection();
+  conn.Open();
+
+  string query = "INSERT INTO vente (carburant, quantite, prix, jour) VALUES (@carburant, @quantite, @prix, @jour)";
+
+  using var cmd = new NpgsqlCommand(query, conn);
+
+  cmd.Parameters.AddWithValue("carburant", vente.Essences.ToString());
+  cmd.Parameters.AddWithValue("quantite", vente.Quantites);
+  cmd.Parameters.AddWithValue("prix", vente.PrixVenteTolal);
+  cmd.Parameters.AddWithValue("jour", DateTime.Today);
+
+  cmd.ExecuteNonQuery();
+
+  Console.WriteLine(" Vente enregistrée en base !");
  }
  
  

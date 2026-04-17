@@ -1,4 +1,4 @@
-namespace ProjetExamen;
+namespace ProjetExamen.Interfaces;
 // creation d une interface methode pour Cuve
 public interface INterfacCuve
 {

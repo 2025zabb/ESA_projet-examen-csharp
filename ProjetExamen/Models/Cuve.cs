@@ -1,4 +1,5 @@
-namespace ProjetExamen;
+using ProjetExamen.Interfaces;
+namespace ProjetExamen.Models;
 /// <summary>
 /// Ca represente une cube de stokage de carburant, elle permet de remplire la cuve,
 /// de voir son état , de distribue du carburant

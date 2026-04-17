@@ -1,4 +1,4 @@
-namespace ProjetExamen;
+namespace ProjetExamen.Models;
 
 public class Employe:Personnes
 {

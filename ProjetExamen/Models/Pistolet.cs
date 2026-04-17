@@ -1,4 +1,6 @@
-namespace ProjetExamen;
+using ProjetExamen.Interfaces;
+
+namespace ProjetExamen.Models;
 
 public class Pistolet : IStatut
 {

@@ -1,4 +1,5 @@
-namespace ProjetExamen;
+using ProjetExamen.Interfaces;
+namespace ProjetExamen.Models;
 
 public class Pompe : IStatut
 {
@@ -34,7 +35,7 @@ public class Pompe : IStatut
 
     }
 
-    public void FaireLePlein(Client client, double quantite)
+    public void FaireLePlein(Client client,StationService station ,double quantite)
     {
         if (Enpane)
         {
@@ -49,11 +50,15 @@ public class Pompe : IStatut
             {
                 pi.Disponible = true;
                 prix = pi.Distribue(quantite);
+                
 
                 if (prix != null)
                 {
                     client.EffectuerLePaiement(prix.Value);
+                    Vente vente1 = new Vente(prix.Value, pi.Cuve.Carburant.Type, quantite,DateTime.Today.DayOfWeek);
+                    station.AjouterUneVente(vente1);
                 }
+                
                 return;
             }
         }
