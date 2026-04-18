@@ -24,4 +24,10 @@ public class Client : Personnes
     {
         Console.WriteLine("Mr/Mme " + Nom + " " + Prenom + " a payé " + montant + " €");
     }
+
+    public void ChoixTypeEssence(double quantite, NomCarburant type)
+    {
+        Console.WriteLine("Mr/Mme " + Nom + " " + Prenom + " veut mettre " + quantite + " litres de " + type);
+    }
+
 }

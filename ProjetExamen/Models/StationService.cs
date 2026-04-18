@@ -229,6 +229,23 @@ public class StationService
 
   Console.WriteLine(" Vente enregistrée en base !");
  }
+
+
+ public Cuve? RechercheBonneCarburant(NomCarburant type, double quantite)
+ {
+  foreach (var cuve in Cuves)
+  {
+   if (cuve.Carburant.Type == type && cuve.GetcapaciteActuelle() >= quantite)
+   {
+    return cuve;
+   }
+  }
+
+  return null;
+ }
+
+
+
  
  
  /// <summary>

@@ -23,6 +23,10 @@ abstract class Program
         station.HorraireShop();
         Console.WriteLine();
 
+        Employe employe_1 = new Employe("Lefevre", "Boris", 1234, "Caisse");
+        employe_1.AfficherInfosPersonnelles();
+        Console.WriteLine();
+
         // ================================
         // 2. CREATION DES CARBURANTS
         // ================================
@@ -101,11 +105,15 @@ abstract class Program
         // 9. FAIRE LE PLEIN
         // ================================
         Console.WriteLine("===== VENTES =====");
-
-        pop1.FaireLePlein(client1, station, 80);
+        
+        client1.ChoixTypeEssence(50,NomCarburant.Diesel);
+        station.RechercheBonneCarburant(NomCarburant.Diesel,50);
+        pop1.FaireLePlein(client1, station, 50);
         Console.WriteLine();
-
-        pop2.FaireLePlein(client2, station, 45);
+        
+        client1.ChoixTypeEssence(100,NomCarburant.Sp98);
+        station.RechercheBonneCarburant(NomCarburant.Diesel,100);
+        pop2.FaireLePlein(client2, station, 100);
         Console.WriteLine();
 
         // ================================
