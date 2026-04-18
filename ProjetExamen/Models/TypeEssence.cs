@@ -1,60 +1,68 @@
 namespace ProjetExamen.Models;
-/// <summary>
-/// Represente les differents types de carburants disponible
-/// </summary>
 
+/// <summary>
+/// Représente les différents types de carburants disponibles.
+/// </summary>
 public enum NomCarburant
 {
-    // carbutant disel
+    /// <summary>
+    /// Carburant diesel.
+    /// </summary>
     Diesel,
-    //essence sans plomb
+
+    /// <summary>
+    /// Essence sans plomb 95.
+    /// </summary>
     Sp95,
-    //essence sans plomb
+
+    /// <summary>
+    /// Essence sans plomb 98.
+    /// </summary>
     Sp98,
-    
 }
+
 /// <summary>
-/// Represente un type d'essence avec son prix
+/// Représente un type de carburant avec son prix par litre.
 /// </summary>
 public class TypeEssence
 {
-    //  type de carburant (diesel,sp95...)
+    /// <summary>
+    /// Type de carburant (Diesel, SP95, SP98...).
+    /// </summary>
     public NomCarburant Type { get; set; }
 
-    // prix du carburant par litre
-    private double PrixParlitre {
-        get; set;
-    }
+    /// <summary>
+    /// Prix du carburant par litre.
+    /// </summary>
+    private double PrixParLitre { get; set; }
     
     /// <summary>
-    /// Constructeur permettant d'initialiser le type d'essence avec son prix
+    /// Constructeur permettant d'initialiser le type de carburant et son prix.
     /// </summary>
-    /// <param name="type"></param>
-    /// <param name="prixParlitre"></param>
-    public TypeEssence(NomCarburant type, double prixParlitre)
+    /// <param name="type">Type de carburant</param>
+    /// <param name="prixParLitre">Prix par litre</param>
+    public TypeEssence(NomCarburant type, double prixParLitre)
     {
         this.Type = type;
-        this.PrixParlitre = prixParlitre ;
-        
-    }
-    /// <summary>
-    /// Calculer le prix pour une quantite donnee
-    /// </summary>
-    /// <param name="litre"></param>
-    /// <returns></returns>
-    public double CalculerPrixParLitre(double litre)
-    {
-        double total = PrixParlitre * litre;
-        return total;
-    }
-    /// <summary>
-    /// Permet de récupérer le prix
-    /// </summary>
-    /// <returns> le prix</returns>
-    public double GetPrixParLitre()
-    {
-        return PrixParlitre;
+        this.PrixParLitre = prixParLitre;
     }
 
-   
+    /// <summary>
+    /// Calcule le prix total pour une quantité donnée.
+    /// </summary>
+    /// <param name="litre">Quantité en litres</param>
+    /// <returns>Prix total</returns>
+    public double CalculerPrixTotal(double litre)
+    {
+        return PrixParLitre * litre;
+    }
+
+    /// <summary>
+    /// Permet de récupérer le prix par litre.
+    /// </summary>
+    /// <returns>Prix par litre</returns>
+    public double GetPrixParLitre()
+    {
+        return PrixParLitre;
+    }
 }

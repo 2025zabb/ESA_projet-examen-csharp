@@ -4,7 +4,7 @@ namespace ProjetExamen.Models;
 /// Ca represente une cube de stokage de carburant, elle permet de remplire la cuve,
 /// de voir son état , de distribue du carburant
 /// </summary>
-public class Cuve: INterfacCuve
+public class Cuve: ICuve
 {
     // represente la quantité actuelle du carburant dans la cuve en littre
     private double CapaciteActuelle {get; set;}
@@ -30,12 +30,12 @@ public class Cuve: INterfacCuve
     /// <param name="seuilcapacite"></param>
     public Cuve(int numeeroCuve, TypeEssence carburant, double capaciteActuelle, double capaciteMax, double capaciteMin,double seuilcapacite)
     {
-        this.NumeeroCuve = numeeroCuve;
-        this.Carburant = carburant;
-        this.CapaciteActuelle = capaciteActuelle;
-        this.CapaciteMax = capaciteMax;
-        this.CapaciteMin = capaciteMin;
-        this.Seuilcapacite = seuilcapacite;
+        NumeeroCuve = numeeroCuve;
+        Carburant = carburant;
+        CapaciteActuelle = capaciteActuelle;
+        CapaciteMax = capaciteMax;
+        CapaciteMin = capaciteMin;
+        Seuilcapacite = seuilcapacite;
         
     }
 
@@ -55,7 +55,6 @@ public class Cuve: INterfacCuve
     /// Vérifie si la est vide 
     /// </summary>
     /// <returns></returns>
-    
     public bool EstVide()
     {
         return CapaciteActuelle == 0;
@@ -65,27 +64,23 @@ public class Cuve: INterfacCuve
     /// Vérifie si la est pleine
     /// </summary>
     /// <returns></returns>
-    
     public bool EstPleine()
     {
         return CapaciteActuelle == CapaciteMax;
     }
-    
     /// <summary>
     /// Vérifie si on doit commander du carbrant
     /// </summary>
     /// <returns></returns>
-    
-    public bool CommanderEssenc()
+    public bool CommanderEssence()
     {
-       return CapaciteActuelle <= CapaciteMin;
+        return CapaciteActuelle <= CapaciteMin;
     }
     /// <summary>
     ///Vérifie si la cuve peut distribuer du carburant
     /// </summary>
     /// <returns></returns>
-    
-    public bool DonnerEssenc()
+    public bool DonnerEssence()
     {
         return !RemplissageEssenc && CapaciteActuelle > Seuilcapacite;
     }
@@ -95,6 +90,9 @@ public class Cuve: INterfacCuve
     /// </summary>
     
     public bool RemplissageEssenc;
+
+    
+
     /// <summary>
     /// Remplit la cuve avec une quantité donnéé de carburant
     /// </summary>
@@ -114,7 +112,7 @@ public class Cuve: INterfacCuve
     
     public void CommanderEtRemplirCuve(double quantite)
     {
-        if (CommanderEssenc())
+        if (CommanderEssence())
         {
             Console.WriteLine("cuve " + NumeeroCuve + " en remplissage");
             RemplissageEssenc = true;
@@ -132,7 +130,7 @@ public class Cuve: INterfacCuve
     /// <param name="quantite"></param>
     public double? DistriEssence(double quantite)
     {
-        if (!DonnerEssenc())
+        if (!DonnerEssence())
         {
             Console.WriteLine(" La cuve ne peut distribuer du carburant");
             return null;
@@ -144,7 +142,7 @@ public class Cuve: INterfacCuve
             return null;
         }
         CapaciteActuelle -= quantite;
-        double lePrix = Math.Round(Carburant.CalculerPrixParLitre(quantite),2);
+        double lePrix = Math.Round(Carburant.CalculerPrixTotal(quantite),2);
         
         
         Console.WriteLine(" distribution OK , " + quantite + " Litres distribué " );

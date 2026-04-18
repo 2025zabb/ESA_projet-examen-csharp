@@ -45,6 +45,7 @@ public class StationService
  /// <param name="address">Adresse de la station</param>
  /// <param name="horaireOuvertureShop"></param>
  /// <param name="horaireFermetureShop"></param>
+ 
  public StationService(string nom, string address,TimeSpan horaireOuvertureShop,TimeSpan horaireFermetureShop)
  {
   this.Nom = nom;
@@ -191,10 +192,10 @@ public class StationService
   {
    Console.WriteLine(
     
-    "Carburant : " + vente.Essences +
-    " Quantité : " + vente.Quantites + " L " +
-    " Prix : " + vente.PrixVenteTolal + " €" +
-    " Jour : " + vente.Jours
+    "Carburant : " + vente.Essence +
+    " Quantité : " + vente.Quantite + " L " +
+    " Prix : " + vente.Prix + " €" +
+    " Jour : " + vente.Jour
     
     
     );
@@ -219,9 +220,9 @@ public class StationService
 
   using var cmd = new NpgsqlCommand(query, conn);
 
-  cmd.Parameters.AddWithValue("carburant", vente.Essences.ToString());
-  cmd.Parameters.AddWithValue("quantite", vente.Quantites);
-  cmd.Parameters.AddWithValue("prix", vente.PrixVenteTolal);
+  cmd.Parameters.AddWithValue("carburant", vente.Essence.ToString());
+  cmd.Parameters.AddWithValue("quantite", vente.Quantite);
+  cmd.Parameters.AddWithValue("prix", vente.Prix);
   cmd.Parameters.AddWithValue("jour", DateTime.Today);
 
   cmd.ExecuteNonQuery();

@@ -34,7 +34,7 @@ abstract class Program
         // 3. CREATION DES CUVES
         // ================================
         Cuve cu1 = new Cuve(1, sp95, 200, 500, 150, 100);
-        Cuve cu2 = new Cuve(2, sp98, 300, 500, 150, 100);
+        Cuve cu2 = new Cuve(2, sp98, 500, 150, 100);
         Cuve cu3 = new Cuve(3, diesel, 400, 500, 150, 100);
 
         station.AjouterCuve(cu1);
