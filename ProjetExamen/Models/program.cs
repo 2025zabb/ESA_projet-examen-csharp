@@ -1,4 +1,4 @@
-﻿using ProjetExamen.Models;
+﻿namespace ProjetExamen.Models;
 
 abstract class Program
 {
@@ -23,8 +23,8 @@ abstract class Program
         station.HorraireShop();
         Console.WriteLine();
 
-        Employe employe_1 = new Employe("Lefevre", "Boris", 1234, "Caisse");
-        employe_1.AfficherInfosPersonnelles();
+        Employe employe1 = new Employe("Lefevre", "Boris", 1234, "Caisse");
+        employe1.AfficherInfosPersonnelles();
         Console.WriteLine();
 
         // ================================
@@ -91,6 +91,7 @@ abstract class Program
         // ================================
         Client client1 = new Client("Nzabi", "Christian");
         Client client2 = new Client("Berto", "Boo");
+        Client client3 = new Client("kabengwa", "Benedicte");
 
         // ================================
         // 8. ETAT DES CUVES
@@ -106,17 +107,25 @@ abstract class Program
         // ================================
         Console.WriteLine("===== VENTES =====");
         
-        client1.ChoixTypeEssence(50,NomCarburant.Diesel);
-        station.RechercheBonneCarburant(NomCarburant.Diesel,50);
-        pop1.FaireLePlein(client1, station, 50);
+        client1.ChoixTypeEssence(NomCarburant.Sp95);
+        station.RechercheBonneCarburant(NomCarburant.Diesel);
+        pop1.FaireLePlein(client1, station, 30);
+        
         Console.WriteLine();
         
-        client1.ChoixTypeEssence(100,NomCarburant.Sp98);
-        station.RechercheBonneCarburant(NomCarburant.Diesel,100);
+        
+        client1.ChoixTypeEssence(NomCarburant.Diesel);
+        station.RechercheBonneCarburant(NomCarburant.Diesel);
         pop2.FaireLePlein(client2, station, 100);
+       
         Console.WriteLine();
+        
+        client3.ChoixTypeEssence(NomCarburant.Sp95);
+        station.RechercheBonneCarburant(NomCarburant.Diesel);
+        pop1.FaireLePlein(client3, station, 30);
+        
 
-        // ================================
+        // ================================æ
         // 10. HISTORIQUE DES VENTES
         // ================================
         Console.WriteLine("===== HISTORIQUE DES VENTES =====");
@@ -124,11 +133,12 @@ abstract class Program
         Console.WriteLine();
 
         // ================================
-        // 11. STOCK APRES VENTE
+        // 11. STOCK AVANT REAPPROVISIONNEMENT 
         // ================================
         Console.WriteLine("===== STOCK APRES VENTE =====");
         station.AffichagerDuStoke();
         Console.WriteLine();
+        station.ControlerNiveauCuves();
 
         // ================================
         // FIN

@@ -231,17 +231,30 @@ public class StationService
  }
 
 
- public Cuve? RechercheBonneCarburant(NomCarburant type, double quantite)
+ public Cuve? RechercheBonneCarburant(NomCarburant type)
  {
   foreach (var cuve in Cuves)
   {
-   if (cuve.Carburant.Type == type && cuve.GetcapaciteActuelle() >= quantite)
+   if (cuve.Carburant.Type == type)
    {
     return cuve;
    }
   }
 
   return null;
+ }
+
+ public void ControlerNiveauCuves()
+ {
+  
+  foreach (var cuve in Cuves)
+  {
+   double quantite = cuve.CapaciteMax - cuve.GetcapaciteActuelle();
+   if (cuve.GetcapaciteActuelle()<= cuve.CapaciteMin)
+   {
+    cuve.CommanderEtRemplirCuve(quantite);
+   }
+  }
  }
 
 
