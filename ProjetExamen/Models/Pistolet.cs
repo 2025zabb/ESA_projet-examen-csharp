@@ -21,7 +21,7 @@ public class Pistolet : IStatut
     /// <summary>
     /// Indique si le pistolet est en panne.
     /// </summary>
-    public bool Enpanne { get; set; }
+    public bool Enpanne { get; private set; }
 
     /// <summary>
     /// Cuve associée au pistolet.
@@ -94,5 +94,15 @@ public class Pistolet : IStatut
             // Le pistolet redevient disponible après utilisation
             Disponible = true;
         }
+        
+        
     }
+    public void MettreEnPanne()
+    {
+        Enpanne = true;
+    }
+    
+    public void Reparer(){
+        Enpanne = false;}
+    
 }

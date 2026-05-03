@@ -19,12 +19,16 @@ public enum NomCarburant
     /// Essence sans plomb 98.
     /// </summary>
     Sp98,
+    
+    Lpg,
+    Melange2Temps,
 }
 
 /// <summary>
 /// Représente un type de carburant avec son prix par litre.
 /// </summary>
 public class TypeEssence
+
 {
     /// <summary>
     /// Type de carburant (Diesel, SP95, SP98...).
@@ -43,8 +47,8 @@ public class TypeEssence
     /// <param name="prixParLitre">Prix par litre</param>
     public TypeEssence(NomCarburant type, double prixParLitre)
     {
-        this.Type = type;
-        this.PrixParLitre = prixParLitre;
+        Type = type;
+        PrixParLitre = prixParLitre;
     }
 
     /// <summary>

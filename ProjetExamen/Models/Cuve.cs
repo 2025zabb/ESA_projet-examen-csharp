@@ -5,7 +5,10 @@ namespace ProjetExamen.Models;
 /// de voir son état , de distribue du carburant
 /// </summary>
 public class Cuve: ICuve
+
 {
+    public bool ProblemeDistribution {get; private set;}
+    
     // represente la quantité actuelle du carburant dans la cuve en littre
     private double CapaciteActuelle {get; set;}
     // represente la quantité maximale du carburant dans la cuve en littre
@@ -17,7 +20,6 @@ public class Cuve: ICuve
     // represente le type de carburant adns la cuve en littre
     public TypeEssence Carburant {get; set;}
     // represente le niveau de seuil de carburant a ne pas depasser dans la cuve en littre
-    
     public double Seuilcapacite {get; set;}
     /// <summary>
     /// Constructeur de la cuve remplit de maniere partiel ou total à la création
@@ -82,7 +84,7 @@ public class Cuve: ICuve
     /// <returns></returns>
     public bool DonnerEssence()
     {
-        return !RemplissageEssenc && CapaciteActuelle > Seuilcapacite;
+        return !RemplissageEssenc && CapaciteActuelle > Seuilcapacite && !ProblemeDistribution;
     }
     
     /// <summary>
@@ -130,9 +132,21 @@ public class Cuve: ICuve
     /// <param name="quantite"></param>
     public double? DistriEssence(double quantite)
     {
-        if (!DonnerEssence())
+        if (ProblemeDistribution)
         {
-            Console.WriteLine(" La cuve ne peut distribuer du carburant");
+            Console.WriteLine(" La cuve ne peut pas distribuer du car probleme de distribution  ");
+            return null;
+        }
+
+        if (RemplissageEssenc)
+        {
+            Console.WriteLine("la cuve ne peut pas distribuer du carburant car , elle est en remplissage ");
+            return null;
+        }
+
+        if (CapaciteActuelle < Seuilcapacite)
+        {
+            Console.WriteLine(" arrêt de distribution ,niveau de carburant trop bas ");
             return null;
         }
 
@@ -189,6 +203,16 @@ public class Cuve: ICuve
     public double GetcapaciteActuelle()
     {
         return CapaciteActuelle;
+    }
+
+    public void SignalerProlemeDeDistribution()
+    {
+        ProblemeDistribution = true;
+    }
+
+    public void ResoudreProblemeDistribution()
+    {
+        ProblemeDistribution = false;
     }
     
 }

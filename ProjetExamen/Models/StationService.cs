@@ -1,3 +1,4 @@
+using System.Numerics;
 using Npgsql;
 using ProjetExamen.Database;
 using static ProjetExamen.Database.Data;
@@ -36,6 +37,10 @@ public class StationService
  public List<Cuve> Cuves {get; set;}
  
  public List<Vente> Ventes {get; set;}
+ 
+ public List<Achats> Achats {get; set;}
+ 
+ 
 
  /// <summary>
  /// Constructeur de la station-service.
@@ -57,6 +62,7 @@ public class StationService
   Cuves = new List<Cuve>();
   Pompes = new List<Pompe>();
   Ventes = new List<Vente>();
+  Achats = new List<Achats>();
  }
  /// <summary>
  /// Ajoute une cuve à la station.
@@ -178,6 +184,14 @@ public class StationService
   Console.WriteLine("une vente a été ajouter ");
   
  }
+
+ public void AjouterUnAchat(Achats achat)
+ {
+  Achats.Add(achat);
+  SauvegarderAchatsBdd(achat);
+  Console.WriteLine("un achat a été ajouter ");
+ }
+ 
 /// <summary>
 /// Permet d'afficher l'historis des ventes
 /// </summary>
@@ -200,6 +214,53 @@ public class StationService
     
     );
   }
+ }
+
+ public void AfficherHistoriqueDAchats()
+ {
+  if (Achats.Count <= 0)
+  {
+   Console.WriteLine("Pas d'Achat");
+  }
+  
+  foreach (var achat in Achats)
+  {
+   Console.WriteLine(
+    
+    "Carburant : " + achat.Carburant +
+    " Quantité : " + achat.Quantite + " L " +
+    " Prix : " + achat.Prix + " €" +
+    " Jour : " + achat.Jour +
+    " Total : " + achat.Total
+    
+    
+   );
+  }
+ }
+ 
+ 
+ 
+ 
+ public void SauvegarderAchatsBdd(Achats achat)
+ {
+  Data db = new Data();
+
+  using var conn = db.GetConnection();
+  conn.Open();
+
+  string query = "INSERT INTO achat (carburant, quantite, prix, jour,total) VALUES (@carburant, @quantite, @prix, @jour, @total)";
+
+  using var cmd = new NpgsqlCommand(query, conn);
+
+  cmd.Parameters.AddWithValue("carburant", achat.Carburant.ToString());
+  cmd.Parameters.AddWithValue("quantite", achat.Quantite);
+  cmd.Parameters.AddWithValue("prix", achat.Prix);
+  cmd.Parameters.AddWithValue("jour", DateTime.Today);
+  cmd.Parameters.AddWithValue("total", achat.Total);
+
+  cmd.ExecuteNonQuery();
+
+  Console.WriteLine(" Achat enregistrée en base !");
  }
  
  
@@ -244,20 +305,57 @@ public class StationService
   return null;
  }
 
+
+ public double PrixAchatCarburant(NomCarburant type)
+ {
+  switch (type)
+  {
+   case NomCarburant.Diesel:
+    return 2.20;
+
+   case NomCarburant.Sp95:
+    return 2;
+
+   case NomCarburant.Sp98:
+    return 2.15;
+
+   case NomCarburant.Lpg:
+    return 2.25;
+
+   case NomCarburant.Melange2Temps:
+    return 2.30;
+
+   default:
+    return 0;
+  }
+ }
+
  public void ControlerNiveauCuves()
  {
   
   foreach (var cuve in Cuves)
   {
-   double quantite = cuve.CapaciteMax - cuve.GetcapaciteActuelle();
+   
    if (cuve.GetcapaciteActuelle()<= cuve.CapaciteMin)
    {
-    cuve.CommanderEtRemplirCuve(quantite);
+    double prixVente = PrixAchatCarburant(cuve.Carburant.Type);
+    double quantite = cuve.CapaciteMax - cuve.GetcapaciteActuelle();
+    
+    double total = prixVente * quantite;
+    
+    CamionCarburant camion = new CamionCarburant(quantite, prixVente);
+    camion.LivraisonDuCarburant(cuve);
+    
+    Achats achat1 = new Achats(cuve.Carburant.Type,quantite,prixVente,DateTime.Today.DayOfWeek,total);
+     AjouterUnAchat(achat1);
+    
+
+
    }
   }
  }
 
-
+ 
 
  
  

@@ -2,12 +2,24 @@ using ProjetExamen.Interfaces;
 
 namespace ProjetExamen.Models;
 
+
+
+public enum Typepompes
+{
+    Velomoteur,
+    CamionDebitRapide,
+    AutresUsage,
+}
+
 /// <summary>
 /// Représente une pompe dans une station-service.
 /// Une pompe contient plusieurs pistolets et permet de distribuer du carburant.
 /// </summary>
 public class Pompe : IStatut
+
 {
+    public Typepompes TypePompe { get; set; }
+
     /// <summary>
     /// Numéro de la pompe.
     /// </summary>
@@ -21,7 +33,7 @@ public class Pompe : IStatut
     /// <summary>
     /// Indique si la pompe est en panne.
     /// </summary>
-    public bool Enpane { get; set; }
+    public bool Enpanne { get; private set; }
 
     /// <summary>
     /// Liste des pistolets associés à la pompe.
@@ -29,20 +41,22 @@ public class Pompe : IStatut
     public List<Pistolet> Pistolets { get; set; }
 
     /// <summary>
-    /// Type de cuve associé (optionnel selon ton modèle).
+    /// Type de cuve assoc
     /// </summary>
-    public string TypeCuve { get; set; }
+    public string? TypeCuve { get; set; }
 
     /// <summary>
     /// Constructeur de la pompe.
     /// Initialise le numéro et l'état par défaut.
     /// </summary>
     /// <param name="numeeroPompe">Numéro de la pompe</param>
-    public Pompe(int numeeroPompe)
+    /// <param name="typePompe"></param>
+    public Pompe(int numeeroPompe, Typepompes typePompe)
     {
         NumeeroPompe = numeeroPompe;
         Disponible = true;
-        Enpane = false;
+        Enpanne = false;
+        TypePompe = typePompe;
         Pistolets = new List<Pistolet>();
     }
 
@@ -52,7 +66,7 @@ public class Pompe : IStatut
     /// <returns>Une chaîne décrivant l'état de la pompe</returns>
     public string Status()
     {
-        if (Enpane)
+        if (Enpanne)
         {
             return "Pompe en panne";
         }
@@ -64,6 +78,32 @@ public class Pompe : IStatut
 
         return "Pompe disponible";
     }
+    
+    
+    
+    public bool VerifierPompeEtVehicule(Vehicule vehicule)
+    
+    {
+        
+        if (TypePompe == Typepompes.AutresUsage)
+        {
+            
+            return vehicule.Category == CategoryVéhicules.Moto ||
+                   vehicule.Category == CategoryVéhicules.Voiture;  
+            
+        }
+
+        if (TypePompe == Typepompes.CamionDebitRapide)
+        {
+            
+            return vehicule.Category == CategoryVéhicules.Camion;
+            
+        }
+
+        return false;
+    }
+
+    
 
     /// <summary>
     /// Permet à un client de faire le plein via un pistolet disponible.
@@ -72,45 +112,94 @@ public class Pompe : IStatut
     /// <param name="client">Client effectuant le plein</param>
     /// <param name="station">Station-service contenant les ventes</param>
     /// <param name="quantite">Quantité de carburant demandée</param>
-    public void FaireLePlein(Client client, StationService station, double quantite)
+    /// <param name="choixEssence"></param>
+    public void FaireLePlein(Client client, StationService station, double quantite, NomCarburant choixEssence,Vehicule vehicule)
     {
-        if (Enpane)
+        if (!VerifierPompeEtVehicule(vehicule))
+        {
+         Console.WriteLine("Ce véhicule n’est pas compatible avec la pompe");
+         return ;
+        }
+        
+        if (Enpanne)
         {
             Console.WriteLine("Pompe hors service");
             return;
         }
 
-        double? prix = null;
+        bool pistoletAvecBonCarburant = false;
+        bool pistoletAvecBonCarburantEnPanne = false;
+        bool pistoletAvecBonCarburantPasDisponible = false;
 
         foreach (var pi in Pistolets)
         {
-            if (pi.Disponible && !Enpane)
+            if (pi.Cuve.Carburant.Type != choixEssence)
             {
-                // Distribution via le pistolet
-                prix = pi.Distribue(quantite);
-
-                if (prix != null)
-                {
-                    // Paiement du client
-                    client.EffectuerLePaiement(prix.Value);
-
-                    // Création de la vente
-                    Vente vente1 = new Vente(
-                        prix.Value,
-                        pi.Cuve.Carburant.Type,
-                        quantite,
-                        DateTime.Today.DayOfWeek
-                    );
-
-                    // Ajout de la vente à la station (et sauvegarde BDD)
-                    station.AjouterUneVente(vente1);
-                }
-
-                return;
+                continue;
             }
+
+            pistoletAvecBonCarburant = true;
+
+            if (pi.Enpanne)
+            {
+                pistoletAvecBonCarburantEnPanne = true;
+                continue;
+            }
+
+            if (!pi.Disponible)
+            {
+                pistoletAvecBonCarburantPasDisponible = true;
+                continue;
+            }
+
+            double? prix = pi.Distribue(quantite);
+
+            if (prix != null)
+            {
+                client.EffectuerLePaiement(prix.Value);
+
+                Vente vente1 = new Vente(
+                    prix.Value,
+                    pi.Cuve.Carburant.Type,
+                    quantite,
+                    DateTime.Today.DayOfWeek
+                );
+
+                station.AjouterUneVente(vente1);
+            }
+
+            return;
         }
 
-        // Aucun pistolet disponible
-        Console.WriteLine("Aucun pistolet disponible");
+        if (!pistoletAvecBonCarburant) // IA ICI
+        {
+            Console.WriteLine("Le carburant demandé n’est pas servi ici");
+        }
+        else if (pistoletAvecBonCarburantEnPanne)
+        {
+            Console.WriteLine("Un pistolet du bon carburant est en panne");
+        }
+        else if (pistoletAvecBonCarburantPasDisponible)
+        {
+            Console.WriteLine("Un pistolet du bon carburant n’est pas disponible");
+        }
+        else
+        {
+            Console.WriteLine("Aucun pistolet disponible");
+        }
     }
+
+    public void MettreEnPanne()
+    {
+        Enpanne = true;
+    }
+
+    public void Repare()
+    {
+        Enpanne = false;
+    }
+
+
+    
+
 }
