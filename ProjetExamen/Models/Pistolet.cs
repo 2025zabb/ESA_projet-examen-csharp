@@ -16,7 +16,7 @@ public class Pistolet : IStatut
     /// <summary>
     /// Indique si le pistolet est disponible.
     /// </summary>
-    public bool Disponible { get; set; }
+    public bool Disponible { get; private set; }
 
     /// <summary>
     /// Indique si le pistolet est en panne.
@@ -94,15 +94,28 @@ public class Pistolet : IStatut
             // Le pistolet redevient disponible après utilisation
             Disponible = true;
         }
-        
-        
+
+
     }
+
     public void MettreEnPanne()
     {
         Enpanne = true;
     }
+
+    public void Reparer()
+    {
+        Enpanne = false;
+    }
     
-    public void Reparer(){
-        Enpanne = false;}
+    public void Occuper()
+    {
+        if (!Enpanne)
+        {
+            Disponible = false;
+        }
+    }
     
 }
+
+   

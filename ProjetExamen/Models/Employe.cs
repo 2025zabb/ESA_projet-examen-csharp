@@ -28,7 +28,9 @@ public class Employe : Personnes
     {
         NumeroEmploye = numero;
         Poste = poste;
+        
     }
+    
 
     /// <summary>
     /// Affiche les informations personnelles et professionnelles de l'employé.

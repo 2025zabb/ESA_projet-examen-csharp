@@ -28,7 +28,7 @@ public class Pompe : IStatut
     /// <summary>
     /// Indique si la pompe est disponible.
     /// </summary>
-    public bool Disponible { get; set; }
+    public bool Disponible { get; private set; }
 
     /// <summary>
     /// Indique si la pompe est en panne.
@@ -103,7 +103,6 @@ public class Pompe : IStatut
         return false;
     }
 
-    
 
     /// <summary>
     /// Permet à un client de faire le plein via un pistolet disponible.
@@ -113,6 +112,7 @@ public class Pompe : IStatut
     /// <param name="station">Station-service contenant les ventes</param>
     /// <param name="quantite">Quantité de carburant demandée</param>
     /// <param name="choixEssence"></param>
+    /// <param name="vehicule"></param>
     public void FaireLePlein(Client client, StationService station, double quantite, NomCarburant choixEssence,Vehicule vehicule)
     {
         if (!VerifierPompeEtVehicule(vehicule))
@@ -197,6 +197,13 @@ public class Pompe : IStatut
     public void Repare()
     {
         Enpanne = false;
+    }
+    public void Occuper()
+    {
+        if (!Enpanne)
+        {
+            Disponible = false;
+        }
     }
 
 
