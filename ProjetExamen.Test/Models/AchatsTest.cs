@@ -13,13 +13,13 @@ public class AchatsTest
     [TestMethod]
     public void verifier_le_constructeur_Achats()
     {
-        NomCarburant Carburant = NomCarburant.Diesel;
-        double Quantite = 1000;
-         double Prix = 2.2;
-        DayOfWeek Jour = DayOfWeek.Monday;
-        double Total = 2200;
+        NomCarburant carburant = NomCarburant.Diesel;
+        double quantite = 1000;
+         double prix = 2.2;
+        DayOfWeek jour = DayOfWeek.Monday;
+        double total = 2200;
         
-        Achats achat = new Achats(NomCarburant.Diesel,Quantite,Prix,Jour,Total);
+        Achats achat = new Achats(carburant,quantite,prix,jour,total);
         
         Assert.AreEqual(NomCarburant.Diesel, achat.Carburant);
         Assert.AreEqual(1000,achat.Quantite);

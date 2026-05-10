@@ -53,10 +53,10 @@ public class StationService
  
  public StationService(string nom, string address,TimeSpan horaireOuvertureShop,TimeSpan horaireFermetureShop)
  {
-  this.Nom = nom;
-  this.Address = address;
-  this.HoraireOuvertureShop = horaireOuvertureShop;
-  this.HoraireFermetureShop = horaireFermetureShop;
+  Nom = nom;
+  Address = address;
+  HoraireOuvertureShop = horaireOuvertureShop;
+  HoraireFermetureShop = horaireFermetureShop;
   
 
   Cuves = new List<Cuve>();
@@ -89,7 +89,7 @@ public class StationService
  public void SupprimerCuve(Cuve cuve)
  {
   Cuves.Remove(cuve);
-  Console.WriteLine("Cuve" + cuve.NumeeroCuve + " supprimer a été de la station service " + Nom);
+  Console.WriteLine("Cuve" + cuve.NumeeroCuve + " a été supprimer de la station service " + Nom);
  }
  /// <summary>
  /// Supprime une pompe de la station.

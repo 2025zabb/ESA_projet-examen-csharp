@@ -16,7 +16,7 @@ public class CamionCarburant
         
         double cout = Quantite * PrixParLitre;
         
-        Console.WriteLine($"Camion arrivé.");
+        Console.WriteLine("Camion arrivé.");
         Console.WriteLine($"Quantité livrée : {Quantite} L");
         Console.WriteLine($"Coût total : {cout} €");
         

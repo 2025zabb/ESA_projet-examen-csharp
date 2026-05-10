@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,6 +26,7 @@ public class PompeTest
         Assert.IsTrue(pompe.Disponible);
         Assert.IsNotNull(pompe.Pistolets);
         Assert.AreEqual(0, pompe.Pistolets.Count);
+        Assert.IsNotNull(pompe);
 
     }
 
@@ -89,33 +91,27 @@ public class PompeTest
     }
 
     [TestMethod]
-    public void Occuper_Pistolet_DevientIndisponible()
+    public void Occuper_Pompe_DevientIndisponible()
     {
         
-        TypeEssence carbutant = new TypeEssence(NomCarburant.Sp95, 2.56);
-        Cuve cuve = new Cuve(1, carbutant, 1000, 2000, 500, 250);
-        Pistolet pistolet = new Pistolet(1, cuve);
+        Pompe p = new Pompe(1, Typepompes.AutresUsage);
         
-        pistolet.Occuper();
+        p.Occuper();
         
-        Assert.IsFalse(pistolet.Disponible);
+        Assert.IsFalse(p.Disponible);
+        Assert.IsFalse(p.Enpanne);
         
     }
     
     
     [TestMethod]
-    public void Occuper_PistoletEnPanne_ResteDisponible()
+    public void Occuper_PompeEnPanne_ResteDisponible()
     {
-        
-        TypeEssence carbutant = new TypeEssence(NomCarburant.Sp95, 2.56);
-        Cuve cuve = new Cuve(1, carbutant, 1000, 2000, 500, 250);
-        Pistolet pistolet = new Pistolet(1, cuve);
-        
-        pistolet.MettreEnPanne();
-        pistolet.Occuper();
-        
-        Assert.IsTrue(pistolet.Disponible);
-        Assert.IsTrue(pistolet.Enpanne);
+        Pompe pompe = new Pompe(1, Typepompes.AutresUsage);
+        pompe.MettreEnPanne();
+        pompe.Occuper();
+        Assert.IsTrue(pompe.Disponible);
+        Assert.IsTrue(pompe.Enpanne);
         
     }
     
@@ -243,7 +239,7 @@ public class PompeTest
         string resultat = sw.ToString();
         
        
-        StringAssert.Contains(resultat, "Le carburant demandé n’est pas servi ici");;
+        StringAssert.Contains(resultat, "Le carburant demandé n’est pas servi ici");
        
     }
     
@@ -306,8 +302,41 @@ public class PompeTest
         string resultat = sw.ToString();
         
        
-        StringAssert.Contains(resultat, "Un pistolet du bon carburant n’est pas disponible");;
-       
+        StringAssert.Contains(resultat, "Un pistolet du bon carburant n’est pas disponible");
+        
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+    }
+
+    [TestMethod]
+    public void FaireLePlein_DistributionOK_VerifieVente()
+    {
+        double quantite = 100;
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(4,0,0,0),new TimeSpan(18,0,0));
+        
+        Pompe pompe = new Pompe(1, Typepompes.AutresUsage);
+        
+        Client client = new Client("Paul", "solp");
+        Vehicule voiture = new Vehicule("Noir", "AUDI", client, CategoryVéhicules.Voiture);
+
+
+        TypeEssence carbutant = new TypeEssence(NomCarburant.Diesel, 2);
+        Cuve cuve = new Cuve(1, carbutant, 100, 50, 25, 5);
+        Pistolet pistolet = new Pistolet(1, cuve);
+        
+        
+        pompe.Pistolets.Add(pistolet);
+        
+        pompe.FaireLePlein(client,station,quantite,NomCarburant.Diesel,voiture);
+        
+        Assert.AreEqual(1,station.Ventes.Count);
+        
+        Vente vente = station.Ventes[0];
+        
+        Assert.AreEqual(100,vente.Quantite);
+        Assert.AreEqual(200,vente.Prix);
+        Assert.AreEqual(NomCarburant.Diesel,vente.Essence);
+        
+        
     }
     
     

@@ -21,6 +21,13 @@ public class Cuve: ICuve
     public TypeEssence Carburant {get; set;}
     // represente le niveau de seuil de carburant a ne pas depasser dans la cuve en littre
     public double Seuilcapacite {get; set;}
+    
+    
+    /// <summary>
+    /// Indique si la cuve est entrain d'etre remplie
+    /// </summary>
+    
+    public bool RemplissageEssenc  {get; private set;}
     /// <summary>
     /// Constructeur de la cuve remplit de maniere partiel ou total à la création
     /// </summary>
@@ -87,14 +94,7 @@ public class Cuve: ICuve
         return !RemplissageEssenc && CapaciteActuelle > Seuilcapacite && !ProblemeDistribution;
     }
     
-    /// <summary>
-    /// Indique si la cuve est entrain d'etre remplie
-    /// </summary>
     
-    public bool RemplissageEssenc;
-
-    
-
     /// <summary>
     /// Remplit la cuve avec une quantité donnéé de carburant
     /// </summary>
@@ -114,14 +114,15 @@ public class Cuve: ICuve
     
     public void CommanderEtRemplirCuve(double quantite)
     {
+        
         if (CommanderEssence())
         {
             Console.WriteLine("cuve " + NumeeroCuve + " en remplissage");
-            RemplissageEssenc = true;
+            DemarrerRemplissage();
             Remplir(quantite);
             Console.WriteLine("la cuve " + NumeeroCuve + " a été remplit de " + quantite + " L");
-            
-            RemplissageEssenc = false;
+
+            ArreterRemplissage();
             Console.WriteLine("cuve " + NumeeroCuve + " peut etre utilise maintenat");
         }
     }
@@ -134,7 +135,7 @@ public class Cuve: ICuve
     {
         if (ProblemeDistribution)
         {
-            Console.WriteLine(" La cuve ne peut pas distribuer du car probleme de distribution  ");
+            Console.WriteLine(" La cuve ne peut pas distribuer du car probleme de distribution ");
             return null;
         }
 
@@ -214,5 +215,16 @@ public class Cuve: ICuve
     {
         ProblemeDistribution = false;
     }
+
+    public void DemarrerRemplissage()
+    {
+    RemplissageEssenc = true;
+    }
+    
+    public void ArreterRemplissage()
+    {
+        RemplissageEssenc = false;
+    }
+    
     
 }
