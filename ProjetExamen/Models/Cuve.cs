@@ -1,43 +1,71 @@
 using ProjetExamen.Interfaces;
-namespace ProjetExamen.Models;
-/// <summary>
-/// Ca represente une cube de stokage de carburant, elle permet de remplire la cuve,
-/// de voir son état , de distribue du carburant
-/// </summary>
-public class Cuve: ICuve
 
+namespace ProjetExamen.Models;
+
+/// <summary>
+/// Représente une cuve de stockage de carburant.
+/// Elle permet de remplir la cuve, vérifier son état
+/// et distribuer du carburant.
+/// </summary>
+public class Cuve : ICuve
 {
-    public bool ProblemeDistribution {get; private set;}
-    
-    // represente la quantité actuelle du carburant dans la cuve en littre
-    private double CapaciteActuelle {get; set;}
-    // represente la quantité maximale du carburant dans la cuve en littre
-    public double CapaciteMax {get; set;}
-    // represente la quantité minimale du carburant dans la cuve en littre
-    public double CapaciteMin {get; set;}
-    // represente le numero unique de la cuve
-    public int NumeeroCuve {get; set;}
-    // represente le type de carburant adns la cuve en littre
-    public TypeEssence Carburant {get; set;}
-    // represente le niveau de seuil de carburant a ne pas depasser dans la cuve en littre
-    public double Seuilcapacite {get; set;}
-    
-    
     /// <summary>
-    /// Indique si la cuve est entrain d'etre remplie
+    /// Indique si la cuve possède un problème de distribution.
     /// </summary>
-    
-    public bool RemplissageEssenc  {get; private set;}
+    public bool ProblemeDistribution { get; private set; }
+
     /// <summary>
-    /// Constructeur de la cuve remplit de maniere partiel ou total à la création
+    /// Quantité actuelle de carburant dans la cuve en litres.
     /// </summary>
-    /// <param name="numeeroCuve"></param>
-    /// <param name="carburant"></param>
-    /// <param name="capaciteActuelle"></param>
-    /// <param name="capaciteMax"></param>
-    /// <param name="capaciteMin"></param>
-    /// <param name="seuilcapacite"></param>
-    public Cuve(int numeeroCuve, TypeEssence carburant, double capaciteActuelle, double capaciteMax, double capaciteMin,double seuilcapacite)
+    private double CapaciteActuelle { get; set; }
+
+    /// <summary>
+    /// Capacité maximale de la cuve en litres.
+    /// </summary>
+    public double CapaciteMax { get; set; }
+
+    /// <summary>
+    /// Niveau minimum de carburant autorisé dans la cuve.
+    /// </summary>
+    public double CapaciteMin { get; set; }
+
+    /// <summary>
+    /// Numéro unique de la cuve.
+    /// </summary>
+    public int NumeeroCuve { get; set; }
+
+    /// <summary>
+    /// Type de carburant contenu dans la cuve.
+    /// </summary>
+    public TypeEssence Carburant { get; set; }
+
+    /// <summary>
+    /// Niveau seuil de sécurité à ne pas dépasser vers le bas.
+    /// </summary>
+    public double Seuilcapacite { get; set; }
+
+    /// <summary>
+    /// Indique si la cuve est en cours de remplissage.
+    /// </summary>
+    public bool RemplissageEssenc { get; private set; }
+
+    /// <summary>
+    /// Constructeur permettant de créer une cuve
+    /// déjà partiellement ou totalement remplie.
+    /// </summary>
+    /// <param name="numeeroCuve">Numéro de la cuve.</param>
+    /// <param name="carburant">Type de carburant.</param>
+    /// <param name="capaciteActuelle">Capacité actuelle.</param>
+    /// <param name="capaciteMax">Capacité maximale.</param>
+    /// <param name="capaciteMin">Capacité minimale.</param>
+    /// <param name="seuilcapacite">Seuil minimum de sécurité.</param>
+    public Cuve(
+        int numeeroCuve,
+        TypeEssence carburant,
+        double capaciteActuelle,
+        double capaciteMax,
+        double capaciteMin,
+        double seuilcapacite)
     {
         NumeeroCuve = numeeroCuve;
         Carburant = carburant;
@@ -45,186 +73,267 @@ public class Cuve: ICuve
         CapaciteMax = capaciteMax;
         CapaciteMin = capaciteMin;
         Seuilcapacite = seuilcapacite;
-        
     }
 
     /// <summary>
-    /// Constructeur de la cuve vide à la creation
+    /// Constructeur permettant de créer une cuve vide.
     /// </summary>
-    /// <param name="numeeroCuve"></param>
-    /// <param name="carburant"></param>
-    /// <param name="capaciteMax"></param>
-    /// <param name="capaciteMin"></param>
-    /// <param name="seuilcapacite"></param>
-    public Cuve(int numeeroCuve, TypeEssence carburant, double capaciteMax, double capaciteMin,double seuilcapacite) 
-        : this (
-        numeeroCuve, carburant,0,capaciteMax,capaciteMin,seuilcapacite){}
-    
+    /// <param name="numeeroCuve">Numéro de la cuve.</param>
+    /// <param name="carburant">Type de carburant.</param>
+    /// <param name="capaciteMax">Capacité maximale.</param>
+    /// <param name="capaciteMin">Capacité minimale.</param>
+    /// <param name="seuilcapacite">Seuil minimum de sécurité.</param>
+    public Cuve(
+        int numeeroCuve,
+        TypeEssence carburant,
+        double capaciteMax,
+        double capaciteMin,
+        double seuilcapacite)
+        : this(
+            numeeroCuve,
+            carburant,
+            0,
+            capaciteMax,
+            capaciteMin,
+            seuilcapacite)
+    {
+    }
+
     /// <summary>
-    /// Vérifie si la est vide 
+    /// Vérifie si la cuve est vide.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>True si la cuve est vide.</returns>
     public bool EstVide()
     {
         return CapaciteActuelle == 0;
-        
     }
+
     /// <summary>
-    /// Vérifie si la est pleine
+    /// Vérifie si la cuve est pleine.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>True si la cuve est pleine.</returns>
     public bool EstPleine()
     {
         return CapaciteActuelle == CapaciteMax;
     }
+
     /// <summary>
-    /// Vérifie si on doit commander du carbrant
+    /// Vérifie si une commande de carburant est nécessaire.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>True si le niveau est inférieur au minimum.</returns>
     public bool CommanderEssence()
     {
         return CapaciteActuelle <= CapaciteMin;
     }
+
     /// <summary>
-    ///Vérifie si la cuve peut distribuer du carburant
+    /// Vérifie si la cuve peut distribuer du carburant.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>True si la distribution est possible.</returns>
     public bool DonnerEssence()
     {
-        return !RemplissageEssenc && CapaciteActuelle > Seuilcapacite && !ProblemeDistribution;
+        return !RemplissageEssenc
+               && CapaciteActuelle > Seuilcapacite
+               && !ProblemeDistribution;
     }
-    
-    
+
     /// <summary>
-    /// Remplit la cuve avec une quantité donnéé de carburant
+    /// Remplit la cuve avec une quantité donnée.
     /// </summary>
-    /// <param name="quantite"></param>
-    
+    /// <param name="quantite">Quantité à ajouter.</param>
     public void Remplir(double quantite)
     {
-     CapaciteActuelle += quantite;
-     if (CapaciteActuelle > CapaciteMax){
-         CapaciteActuelle = CapaciteMax;}
+        CapaciteActuelle += quantite;
+
+        // Empêche de dépasser la capacité maximale
+        if (CapaciteActuelle > CapaciteMax)
+        {
+            CapaciteActuelle = CapaciteMax;
+        }
     }
-    
+
     /// <summary>
-    /// Permet de commander et de remplir la cuve si nécessaire
+    /// Commande du carburant et remplit la cuve si nécessaire.
     /// </summary>
-    /// <param name="quantite"></param>
-    
+    /// <param name="quantite">Quantité à ajouter.</param>
     public void CommanderEtRemplirCuve(double quantite)
     {
-        
         if (CommanderEssence())
         {
-            Console.WriteLine("cuve " + NumeeroCuve + " en remplissage");
-            DemarrerRemplissage();
-            Remplir(quantite);
-            Console.WriteLine("la cuve " + NumeeroCuve + " a été remplit de " + quantite + " L");
+            Console.WriteLine("Cuve " + NumeeroCuve + " en remplissage");
 
+            // Début du remplissage
+            DemarrerRemplissage();
+
+            // Ajout du carburant
+            Remplir(quantite);
+
+            Console.WriteLine(
+                "La cuve "
+                + NumeeroCuve
+                + " a été remplie de "
+                + quantite
+                + " L");
+
+            // Fin du remplissage
             ArreterRemplissage();
-            Console.WriteLine("cuve " + NumeeroCuve + " peut etre utilise maintenat");
+
+            Console.WriteLine(
+                "Cuve "
+                + NumeeroCuve
+                + " peut être utilisée maintenant");
         }
     }
-    
+
     /// <summary>
-    /// Permet de distribue une quantité de carburant
+    /// Distribue une quantité de carburant.
     /// </summary>
-    /// <param name="quantite"></param>
+    /// <param name="quantite">Quantité demandée.</param>
+    /// <returns>Prix total ou null si impossible.</returns>
     public double? DistriEssence(double quantite)
     {
+        // Vérifie si un problème de distribution existe
         if (ProblemeDistribution)
         {
-            Console.WriteLine(" La cuve ne peut pas distribuer du car probleme de distribution ");
+            Console.WriteLine(
+                "La cuve ne peut pas distribuer "
+                + "de carburant : problème de distribution");
+
             return null;
         }
 
+        // Vérifie si la cuve est en remplissage
         if (RemplissageEssenc)
         {
-            Console.WriteLine("la cuve ne peut pas distribuer du carburant car , elle est en remplissage ");
+            Console.WriteLine(
+                "La cuve ne peut pas distribuer "
+                + "de carburant car elle est en remplissage");
+
             return null;
         }
 
+        // Vérifie si le niveau est trop bas
         if (CapaciteActuelle < Seuilcapacite)
         {
-            Console.WriteLine(" arrêt de distribution ,niveau de carburant trop bas ");
+            Console.WriteLine(
+                "Arrêt de distribution : "
+                + "niveau de carburant trop bas");
+
             return null;
         }
 
+        // Vérifie si la quantité demandée est disponible
         if (CapaciteActuelle < quantite)
         {
-            Console.WriteLine(" pas assez d'essence dans la cuve ");
+            Console.WriteLine(
+                "Pas assez de carburant dans la cuve");
+
             return null;
         }
+
+        // Retire le carburant distribué
         CapaciteActuelle -= quantite;
-        double lePrix = Math.Round(Carburant.CalculerPrixTotal(quantite),2);
-        
-        
-        Console.WriteLine(" distribution OK , " + quantite + " Litres distribué " );
-        Console.WriteLine("Prix a payer " + lePrix + " € ");
+
+        // Calcul du prix total
+        double lePrix =
+            Math.Round(Carburant.CalculerPrixTotal(quantite), 2);
+
+        Console.WriteLine(
+            "Distribution OK : "
+            + quantite
+            + " litres distribués");
+
+        Console.WriteLine(
+            "Prix à payer : "
+            + lePrix
+            + " €");
+
         return lePrix;
     }
-    
+
     /// <summary>
-    /// Affiche l'état actuel de la cuve
+    /// Affiche l’état actuel de la cuve.
     /// </summary>
     public void EtatDeLaCuve()
     {
         if (EstVide())
         {
-            Console.WriteLine("nouvelle cuve " + NumeeroCuve + " est vide ");
-           
-        } else if (EstPleine())
+            Console.WriteLine(
+                "La cuve "
+                + NumeeroCuve
+                + " est vide");
+        }
+        else if (EstPleine())
         {
-            Console.WriteLine("la  cuve " + NumeeroCuve + " posséde du carburant ");
+            Console.WriteLine(
+                "La cuve "
+                + NumeeroCuve
+                + " est pleine");
         }
         else
         {
-            Console.WriteLine(" la  cuve " + NumeeroCuve + " en service ");
+            Console.WriteLine(
+                "La cuve "
+                + NumeeroCuve
+                + " est en service");
         }
     }
-    
+
     /// <summary>
-    /// Remplit la cuve automatiquement si elle est vide
+    /// Remplit automatiquement la cuve si elle est vide.
     /// </summary>
-    /// <param name="quantite"></param>
+    /// <param name="quantite">Quantité à ajouter.</param>
     public void RemplirCuveSiVide(double quantite)
     {
         if (EstVide())
         {
             CommanderEtRemplirCuve(quantite);
-            Console.WriteLine(" La cuve a été remplit de " + quantite + " Litres");
+
+            Console.WriteLine(
+                "La cuve a été remplie de "
+                + quantite
+                + " litres");
         }
     }
-    
+
     /// <summary>
-    /// Donne la capacité actuelle de la cuve
+    /// Retourne la capacité actuelle de la cuve.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Capacité actuelle.</returns>
     public double GetcapaciteActuelle()
     {
         return CapaciteActuelle;
     }
 
+    /// <summary>
+    /// Signale un problème de distribution.
+    /// </summary>
     public void SignalerProlemeDeDistribution()
     {
         ProblemeDistribution = true;
     }
 
+    /// <summary>
+    /// Résout le problème de distribution.
+    /// </summary>
     public void ResoudreProblemeDistribution()
     {
         ProblemeDistribution = false;
     }
 
+    /// <summary>
+    /// Démarre le remplissage de la cuve.
+    /// </summary>
     public void DemarrerRemplissage()
     {
-    RemplissageEssenc = true;
+        RemplissageEssenc = true;
     }
-    
+
+    /// <summary>
+    /// Arrête le remplissage de la cuve.
+    /// </summary>
     public void ArreterRemplissage()
     {
         RemplissageEssenc = false;
     }
-    
-    
 }

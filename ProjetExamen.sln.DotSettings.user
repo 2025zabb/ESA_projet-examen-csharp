@@ -6,12 +6,10 @@
 	<s:Boolean x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/ShowAdvancedOptions/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=AD31DA42_002D2A01_002D4CC2_002DABBA_002DF9DAAF36D49D/@EntryIndexedValue">2B907BC7-6E44-4052-B1B2-7F1D4E0C0422</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=MSTest/@EntryIndexedValue">d6790ab7-33c2-4425-b2c9-51480cd1a852</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=485f9fad_002D304d_002D4853_002Da6d3_002D75abf86d6002/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AjouterUneAchat_DoitAjouterUnAchatEtLaSauvegarder" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;MSTest::2B907BC7-6E44-4052-B1B2-7F1D4E0C0422::net10.0::ProjetExamen.Test.Models.StationServiceTest.AjouterUneAchat_DoitAjouterUnAchatEtLaSauvegarder&lt;/TestId&gt;
-    &lt;TestId&gt;MSTest::2B907BC7-6E44-4052-B1B2-7F1D4E0C0422::net10.0::ProjetExamen.Test.Models.StationServiceTest.AjouterUneVente_DoitAjouterLaVenteEtLaSauvegarder&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
 	
 	
 	
@@ -36,6 +34,12 @@
     &lt;TestId&gt;MSTest::2B907BC7-6E44-4052-B1B2-7F1D4E0C0422::net10.0::ProjetExamen.Test.Models.PistoletTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fcf09547_002D0f72_002D477c_002Daa20_002D975025ba4c82/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ControlerNiveauCuves_Doit_Pas_CommanderUnReapprovisionnementQuandLeNiveauSuperieur_InferieurOuEgalAuMinimum" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;MSTest::2B907BC7-6E44-4052-B1B2-7F1D4E0C0422::net10.0::ProjetExamen.Test.Models.StationServiceTest.ControlerNiveauCuves_Doit_Pas_CommanderUnReapprovisionnementQuandLeNiveauSuperieur_InferieurOuEgalAuMinimum&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	
 	
 	
 	

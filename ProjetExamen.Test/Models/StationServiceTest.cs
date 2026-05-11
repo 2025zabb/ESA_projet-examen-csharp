@@ -292,6 +292,171 @@ public class StationServiceTest
         
     }
 
+    [TestMethod]
+    public void AfficherHistoriqueDeVentes_DoitAfficherLeMessageAucunVenteQuandIlNyaPasDeVente()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+        
+
+       
+       
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        
+        station.AfficherHistoriqueDeVentes();
+        
+        string resultat = sw.ToString();
+        StringAssert.Contains(resultat,"Pas de vente");
+    }
     
+    
+    [TestMethod]
+    public void AfficherHistoriqueDeVentes_DoitAfficherLesVentesQuandIlyaDeVente()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+        Vente vente = new Vente(2, NomCarburant.Lpg,50, DayOfWeek.Friday);
+        Vente vente1 = new Vente(3, NomCarburant.Diesel, 60, DayOfWeek.Thursday);
+
+        
+       
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        station.Ventes.Add(vente);
+        station.Ventes.Add(vente1);
+        station.AfficherHistoriqueDeVentes();
+       
+        
+        string resultat = sw.ToString();
+        StringAssert.Contains(resultat,"Carburant : " + vente.Essence +
+                                  " Quantité : " + vente.Quantite + " L " +
+                                  " Prix : " + vente.Prix + " €" +
+                                  " Jour : " + vente.Jour);
+    }
+
+    [TestMethod]
+    public void AfficherHistoriqueDAchats_DoitAfficherLeMessageAucunAchatQuandIlNyAPasDAchat()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+        
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        
+        station.AfficherHistoriqueDAchats();
+        
+        string resultat = sw.ToString();
+        StringAssert.Contains(resultat,"Pas d'Achat");
+    }
+    
+    [TestMethod]
+    public void AfficherHistoriqueDAchats_DoitAffiLesAchatQuandIlyaAchat()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+   
+        Achats achat = new Achats(NomCarburant.Sp95,30,2,DayOfWeek.Thursday,80);
+
+        
+       
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+       station.Achats.Add(achat);
+       station.AfficherHistoriqueDAchats();
+       
+        
+        string resultat = sw.ToString();
+        StringAssert.Contains(resultat, "Carburant : " + achat.Carburant +
+                                        " Quantité : " + achat.Quantite + " L " +
+                                        " Prix : " + achat.Prix + " €" +
+                                        " Jour : " + achat.Jour +
+                                        " Total : " + achat.Total);
+    }
+
+    [TestMethod]
+    public void SauvegarderAchatsBdd_DoitEnregistrerUnAchatEnBaseDeDonnees()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+   
+        Achats achat = new Achats(NomCarburant.Sp95,30,2,DayOfWeek.Thursday,80);
+        
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        station.AjouterUnAchat(achat);
+        string resultat = sw.ToString();
+        StringAssert.Contains(resultat, " Achat enregistrée en base !");
+    }
+    
+    [TestMethod]
+    public void SauvegarderVenteBdd_DoitEnregistrerUneVenteEnBaseDeDonnees()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+        Vente vente = new Vente(2, NomCarburant.Lpg,50, DayOfWeek.Friday);
+        
+        using StringWriter sw = new StringWriter();
+        Console.SetOut(sw);
+        station.AjouterUneVente(vente);
+        string resultat = sw.ToString();
+        StringAssert.Contains(resultat, " Vente enregistrée en base !");
+    }
+
+    [TestMethod]
+    public void RechercheBonneCarburant_DoitRetournerLaCuveCorrespondante()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+        TypeEssence typeEssence = new TypeEssence(NomCarburant.Diesel, 3);
+        TypeEssence typeEssence2 = new TypeEssence(NomCarburant.Sp95, 3);
+        Cuve cuve = new Cuve(1,typeEssence,200,100,50,25);
+        Cuve cuve2 = new Cuve(1,typeEssence2,2000,7500,150,25);
+        
+        station.AjouterCuve(cuve);
+        station.AjouterCuve(cuve2);
+        
+        station.RechercheBonneCarburant(typeEssence.Type);
+        Assert.AreEqual(cuve2, station.RechercheBonneCarburant(NomCarburant.Sp95));
+    }
+
+
+
+    [TestMethod]
+    public void PrixAchatCarburant_DoitRetournerLeBonPrixSelonLeTypeDeCarburant()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+       
+        station.PrixAchatCarburant(NomCarburant.Sp95);
+        
+        Assert.AreEqual(2,station.PrixAchatCarburant(NomCarburant.Sp95));
+    }
+
+    [TestMethod]
+    public void ControlerNiveauCuves_DoitCommanderUnReapprovisionnementQuandLeNiveauEstInferieurOuEgalAuMinimum()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+        TypeEssence typeEssence = new TypeEssence(NomCarburant.Diesel, 3);
+        Cuve cuve = new Cuve(1,typeEssence,500,1000,500,25);
+        
+        station.AjouterCuve(cuve);
+        
+        station.ControlerNiveauCuves();
+        
+        Assert.AreEqual(1,station.Achats.Count);
+        
+    }
+
+    [TestMethod]
+    public void ControlerNiveauCuves_Doit_Pas_CommanderUnReapprovisionnementQuandLeNiveauSuperieur_InferieurOuEgalAuMinimum()
+    {
+        StationService station = new StationService("MyStation", "rue des Alliés",new TimeSpan(5,0,0),new TimeSpan(18,0,0));
+        TypeEssence typeEssence = new TypeEssence(NomCarburant.Diesel, 3);
+        Cuve cuve = new Cuve(1,typeEssence,600,1000,500,25);
+        
+        station.AjouterCuve(cuve);
+        
+        station.ControlerNiveauCuves();
+        
+        Assert.AreEqual(0,station.Achats.Count);
+    }
+    
+
+
+    
+
 
 }
